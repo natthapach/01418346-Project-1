@@ -1,6 +1,7 @@
 package cs.sci.ku.cookyalpha.dao;
 
 import com.google.firebase.database.IgnoreExtraProperties;
+import com.google.firebase.database.PropertyName;
 
 /**
  * Created by MegapiesPT on 31/10/2560.
@@ -8,7 +9,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
 public class RecipePreview {
-    public String imgUrl;
+    @PropertyName("img") public String imgUrl;
 
     public RecipePreview(String imgUrl) {
         this.imgUrl = imgUrl;
@@ -16,5 +17,10 @@ public class RecipePreview {
 
     public RecipePreview() {
 
+    }
+
+    @Override
+    public String toString() {
+        return "Preview{ imgUrl:" + imgUrl + "}";
     }
 }
