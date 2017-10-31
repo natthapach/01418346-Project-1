@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "436294322924",
+    "firebase_url": "https://cookyalpa.firebaseio.com",
+    "project_id": "cookyalpa",
+    "storage_bucket": "cookyalpa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:436294322924:android:d23a8202190afdac",
+        "android_client_info": {
+          "package_name": "cs.sci.ku.cooky"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "436294322924-ssc6isfs57kfgda8ruclvjk4b9rht2ej.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAX3-nCcNALs4_zKHvNoyZoIVrv0_xUzj8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:436294322924:android:bc753ab021a5ff25",
+        "android_client_info": {
+          "package_name": "cs.sci.ku.cookyalpha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "436294322924-ssc6isfs57kfgda8ruclvjk4b9rht2ej.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAX3-nCcNALs4_zKHvNoyZoIVrv0_xUzj8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
