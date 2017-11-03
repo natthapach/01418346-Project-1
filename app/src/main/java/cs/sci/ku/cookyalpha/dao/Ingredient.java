@@ -9,12 +9,12 @@ import com.google.firebase.database.PropertyName;
 @IgnoreExtraProperties
 public class Ingredient {
     @PropertyName("name") public String name;
-    @PropertyName("amt") public int amount;
+    @PropertyName("amt") public String amount;
 
     public Ingredient() {
     }
 
-    public Ingredient(String name, int amount) {
+    public Ingredient(String name, String amount) {
         this.name = name;
         this.amount = amount;
     }

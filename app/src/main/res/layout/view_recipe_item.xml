@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/recipe_item_bg">
+    android:background="#212121">
 
     <LinearLayout
         android:padding="@dimen/inner_padding"
@@ -44,6 +44,7 @@
         android:layout_height="wrap_content">
         <TextView
             android:text="Recipe Name"
+            android:id="@+id/tv_recipe_name"
             android:maxLines="1"
             android:ellipsize="end"
             android:layout_width="match_parent"
@@ -51,6 +52,7 @@
 
         <TextView
             android:text="Recipe description"
+            android:id="@+id/tv_recipe_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLines="2"

@@ -2,6 +2,8 @@ package cs.sci.ku.cookyalpha;
 
 import android.app.Application;
 
+import cs.sci.ku.cookyalpha.managers.FirebaseRecipeManager;
+import cs.sci.ku.cookyalpha.managers.GlobalRecipeCollector;
 import cs.sci.ku.cookyalpha.utils.Contextor;
 
 /**
@@ -14,6 +16,8 @@ public class MainApplication extends Application {
     public void onCreate() {
         super.onCreate();
         Contextor.getInstance().init(getApplicationContext());
+        FirebaseRecipeManager.getInstance();
+        GlobalRecipeCollector.getInstance();
     }
 
     @Override

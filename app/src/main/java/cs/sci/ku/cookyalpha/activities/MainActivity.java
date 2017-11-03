@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import cs.sci.ku.cookyalpha.R;
+import cs.sci.ku.cookyalpha.fragments.GlobalRecipeListFragment;
 import cs.sci.ku.cookyalpha.managers.FirebaseRecipeManager;
 import cs.sci.ku.cookyalpha.managers.RecipeManager;
 
@@ -14,8 +15,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        RecipeManager recipeManager = FirebaseRecipeManager.getInstance();
+//        RecipeManager recipeManager = FirebaseRecipeManager.getInstance();
+//
+//        recipeManager.loadGlobalRecipe();
+        if (savedInstanceState == null){
+            getSupportFragmentManager().beginTransaction()
+                                        .add(R.id.container_frame, GlobalRecipeListFragment.newInstance())
+                                        .commit();
+        }
+        initInstance();
+    }
 
-        recipeManager.loadGlobalRecipe();
+    private void initInstance() {
+
     }
 }
