@@ -77,4 +77,7 @@ public class RecipeItemView extends FrameLayout {
                 .load(recipe.preview.imgUrl)
                 .into(recipeImageView);
     }
+    public Recipe getRecipe(){
+        return recipe;
+    }
 }
