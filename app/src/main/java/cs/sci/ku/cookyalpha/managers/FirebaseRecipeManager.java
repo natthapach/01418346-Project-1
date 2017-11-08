@@ -10,6 +10,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,7 @@ public class FirebaseRecipeManager implements RecipeManager{
     private DatabaseReference ref;
     private Set<RecipeObserver> observers;
     private List<Recipe> recipes;
+    private Map<String, Recipe> recipeMap;
 
     public static FirebaseRecipeManager getInstance(){
         if (instance==null)
@@ -38,6 +40,7 @@ public class FirebaseRecipeManager implements RecipeManager{
         ref = database.getReference("recipe");
         observers = new HashSet<>();
         recipes = new ArrayList<>();
+        recipeMap = new HashMap<>();
 
         initCallBack();
     }
@@ -54,6 +57,7 @@ public class FirebaseRecipeManager implements RecipeManager{
                 if (recipe != null){
                     recipe.id = dataSnapshot.getKey();
                     recipes.add(recipe);
+                    recipeMap.put(recipe.id, recipe);
                     Log.d("My App", recipe.toString());
                     notifyObserversOnAdd(recipe);
                 }
@@ -102,6 +106,9 @@ public class FirebaseRecipeManager implements RecipeManager{
             }
         });
         return null;
+    }
+    public Recipe getRecipe(String id){
+        return recipeMap.get(id);
     }
     public List<Recipe> addObserver(RecipeObserver observer){
         observers.add(observer);
