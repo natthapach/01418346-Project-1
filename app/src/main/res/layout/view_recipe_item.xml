@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#212121">
+    android:background="@drawable/shape_rounded"
+    android:id="@+id/root">
 
     <LinearLayout
         android:orientation="vertical"
@@ -24,6 +25,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <TextView
+                    style="@style/Header2.Dark"
                     android:text="Owner Name xxx"
                     android:maxLines="1"
                     android:ellipsize="end"
@@ -31,6 +33,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
+                    style="@style/NormalText.Dark"
                     android:text="time"
                     android:id="@+id/tv_time_created"
                     android:layout_width="wrap_content"
@@ -47,6 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
+                style="@style/Header1.Dark"
                 android:text="Recipe Name"
                 android:id="@+id/tv_recipe_name"
                 android:maxLines="1"
@@ -55,6 +59,7 @@
                 android:layout_height="wrap_content" />
 
             <TextView
+                style="@style/NormalText.Dark"
                 android:text="Recipe description"
                 android:id="@+id/tv_recipe_desc"
                 android:layout_width="match_parent"

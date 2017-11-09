@@ -2,4 +2,5 @@
 <resources>
     <dimen name="recipe_owner_icon">50dp</dimen>
     <dimen name="inner_padding">10dp</dimen>
+    <dimen name="spacing">16dp</dimen>
 </resources>

@@ -8,6 +8,35 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="Header1">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="Header2">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="NormalText">
+        <item name="android:textSize">15sp</item>
+    </style>
 
+    <style name="Header1.Dark">
+        <item name="android:textColor">#161616</item>
+    </style>
+    <style name="Header1.Light">
+        <item name="android:textColor">#dededede</item>
+    </style>
+    <style name="Header2.Dark">
+        <item name="android:textColor">#212121</item>
+    </style>
+    <style name="Header2.Light">
+        <item name="android:textColor">#d0d0d0</item>
+    </style>
+    <style name="NormalText.Dark">
+        <item name="android:textColor">#262626</item>
+    </style>
+    <style name="NormalText.Light">
+        <item name="android:textColor">#cecece</item>
+    </style>
 
 </resources>

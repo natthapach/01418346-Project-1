@@ -4,10 +4,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import cs.sci.ku.cookyalpha.R;
 import cs.sci.ku.cookyalpha.dao.Recipe;
 import cs.sci.ku.cookyalpha.utils.Contextor;
 import cs.sci.ku.cookyalpha.views.RecipeItemView;
@@ -85,6 +87,13 @@ public class GlobalRecipeCollector implements FirebaseRecipeManager.RecipeObserv
             RecipeItemView rview = (RecipeItemView) view;
             Recipe recipe = recipes.get(i);
             rview.setRecipe(recipe);
+
+            if (i==0){
+//                FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+//                layoutParams.setMargins(0, Contextor.getInstance().getContext().getResources().getDimensionPixelSize(R.dimen.spacing), 0, 0);
+//                rview.setLayoutParams(layoutParams);
+                rview.enableTopMargin();
+            }
             return rview;
         }
     }

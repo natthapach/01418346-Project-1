@@ -9,12 +9,14 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
 import cs.sci.ku.cookyalpha.R;
 import cs.sci.ku.cookyalpha.dao.Recipe;
+import cs.sci.ku.cookyalpha.utils.Contextor;
 
 /**
  * Created by MegapiesPT on 31/10/2560.
@@ -79,5 +81,13 @@ public class RecipeItemView extends FrameLayout {
     }
     public Recipe getRecipe(){
         return recipe;
+    }
+
+    public void enableTopMargin(){
+        RelativeLayout rootLayout = findViewById(R.id.root);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+
+        layoutParams.setMargins(0, Contextor.getInstance().getContext().getResources().getDimensionPixelSize(R.dimen.spacing), 0, 0);
+        rootLayout.setLayoutParams(layoutParams);
     }
 }
