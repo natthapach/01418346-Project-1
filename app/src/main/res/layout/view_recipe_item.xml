@@ -60,8 +60,8 @@
 
             <TextView
                 style="@style/NormalText.Dark"
-                android:text="Recipe description"
-                android:id="@+id/tv_recipe_desc"
+                android:text="Likes"
+                android:id="@+id/tv_likes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="2"

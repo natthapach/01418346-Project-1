@@ -28,8 +28,8 @@ public class RecipeItemView extends FrameLayout {
     private TextView ownerNameTextView;
     private TextView timeTextView;
     private ImageView recipeImageView;
-    private TextView descriptionTextView;
     private TextView recipeNameTextView;
+    private TextView likesTextView;
 
     public RecipeItemView(@NonNull Context context) {
         super(context);
@@ -65,7 +65,7 @@ public class RecipeItemView extends FrameLayout {
         ownerNameTextView = findViewById(R.id.tv_owner_name);
         timeTextView = findViewById(R.id.tv_time_created);
         recipeImageView = findViewById(R.id.iv_recipe_img);
-        descriptionTextView = findViewById(R.id.tv_recipe_desc);
+        likesTextView = findViewById(R.id.tv_likes);
         recipeNameTextView = findViewById(R.id.tv_recipe_name);
     }
 
@@ -74,7 +74,8 @@ public class RecipeItemView extends FrameLayout {
         this.recipe = recipe;
         timeTextView.setText(recipe.createdTime);
         recipeNameTextView.setText(recipe.name);
-        descriptionTextView.setText(recipe.description);
+        int like = recipe.like.values().size();
+        likesTextView.setText(like + " likes");
         Glide.with(getContext())
                 .load(recipe.preview.imgUrl)
                 .into(recipeImageView);
