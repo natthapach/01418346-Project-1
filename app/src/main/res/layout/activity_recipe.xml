@@ -20,6 +20,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <android.support.design.widget.TabLayout
+            app:tabIndicatorColor="@color/indicator_selected"
+            android:background="@color/colorPrimary"
+            app:tabSelectedTextColor="#FFF"
+            app:tabTextColor="@color/indicator_unselected_text"
             android:id="@+id/tab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

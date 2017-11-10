@@ -6,4 +6,6 @@
     <color name="recipe_item_bg">#FFF</color>
     <color name="overlay_color">#80000000</color>
     <color name="DarkBackground">#303030</color>
+    <color name="indicator_selected">#fdfd8c</color>
+    <color name="indicator_unselected_text">#fad7b2</color>
 </resources>
