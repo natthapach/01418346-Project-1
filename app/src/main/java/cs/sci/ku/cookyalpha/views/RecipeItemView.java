@@ -74,7 +74,7 @@ public class RecipeItemView extends FrameLayout {
         this.recipe = recipe;
         timeTextView.setText(recipe.createdTime);
         recipeNameTextView.setText(recipe.name);
-        int like = recipe.like.values().size();
+        int like = recipe.like.size();
         likesTextView.setText(like + " likes");
         Glide.with(getContext())
                 .load(recipe.preview.imgUrl)

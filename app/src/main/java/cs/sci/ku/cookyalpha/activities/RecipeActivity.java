@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import cs.sci.ku.cookyalpha.R;
+import cs.sci.ku.cookyalpha.fragments.IngredientListFragment;
 import cs.sci.ku.cookyalpha.fragments.PreviewRecipeFragment;
 
 public class RecipeActivity extends AppCompatActivity {
@@ -18,7 +19,7 @@ public class RecipeActivity extends AppCompatActivity {
         String recipeId = intent.getStringExtra("recipeId");
         if (savedInstanceState == null && recipeId != null){
             getSupportFragmentManager().beginTransaction()
-                                        .add(R.id.container_frame, PreviewRecipeFragment.newInstance(recipeId))
+                                        .add(R.id.container_frame, IngredientListFragment.newInstance(recipeId))
                                         .commit();
         }
     }
