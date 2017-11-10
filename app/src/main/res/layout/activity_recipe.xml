@@ -4,10 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cs.sci.ku.cookyalpha.activities.RecipeActivity">
+    tools:context="cs.sci.ku.cookyalpha.activities.RecipeActivity"
+    android:orientation="vertical">
 
-    <FrameLayout
-        android:id="@+id/container_frame"
+    <!--<FrameLayout-->
+        <!--android:id="@+id/container_frame"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"/>-->
+    <!--<cs.sci.ku.cookyalpha.views.SlidingTabLayout-->
+        <!--android:id="@+id/slidingTab"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"/>-->
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent">
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"/>
+
+    </android.support.v4.view.ViewPager>
 </LinearLayout>
