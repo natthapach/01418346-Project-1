@@ -1,5 +1,6 @@
 package cs.sci.ku.cookyalpha.views;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -67,11 +68,10 @@ public class IngredientItemView extends FrameLayout {
     }
 
     public void enableTopMargin(){
-//        LinearLayout rootLayout = findViewById(R.id.root);
-//        LinearLayout rootLayout = findViewById(R.id.root);
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+        @SuppressLint("WrongViewCast") LinearLayout rootLayout = findViewById(R.id.root);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
 
         layoutParams.setMargins(0, Contextor.getInstance().getContext().getResources().getDimensionPixelSize(R.dimen.spacing), 0, 0);
-//        rootLayout.setLayoutParams(layoutParams);
+        rootLayout.setLayoutParams(layoutParams);
     }
 }

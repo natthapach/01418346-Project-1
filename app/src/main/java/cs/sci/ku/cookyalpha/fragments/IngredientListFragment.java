@@ -87,6 +87,8 @@ public class IngredientListFragment extends Fragment {
                     view = new IngredientItemView(Contextor.getInstance().getContext());
                 IngredientItemView iview = (IngredientItemView) view;
                 iview.setIngredient(ingredients.get(i));
+                if (i == 0)
+                    iview.enableTopMargin();
                 return iview;
             }
         });
