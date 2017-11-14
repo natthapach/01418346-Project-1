@@ -2,4 +2,12 @@
     <string name="app_name">CookyAlpha</string>
     <string name="open_drawer">Open menu</string>
     <string name="close_drawer">Close menu</string>
+    <string name="recipe_name_label">Name</string>
+    <string name="recipe_name_hint">Recipe name</string>
+    <string name="recipe_description_label">Description</string>
+    <string name="recipe_description_hint">Recipe description</string>
+    <string name="recipe_category_label">Category</string>
+    <string name="recipe_people_label">For People</string>
+    <string name="recipe_preview_image">Preview Image</string>
+    <string name="select">Select</string>
 </resources>
