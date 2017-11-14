@@ -8,4 +8,11 @@
     <color name="DarkBackground">#303030</color>
     <color name="indicator_selected">#fdfd8c</color>
     <color name="indicator_unselected_text">#fad7b2</color>
+
+    <color name="text_dark_L1">#161616</color>
+    <color name="text_dark_L2">#212121</color>
+    <color name="text_dark_L3">#262626</color>
+    <color name="text_light_L1">#dededede</color>
+    <color name="text_light_L2">#d0d0d0</color>
+    <color name="text_light_L3">#cecece</color>
 </resources>
