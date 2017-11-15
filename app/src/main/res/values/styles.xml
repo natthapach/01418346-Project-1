@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="MainTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -18,10 +19,12 @@
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+
     <style name="Header2">
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+
     <style name="NormalText">
         <item name="android:textSize">15sp</item>
     </style>
@@ -29,20 +32,34 @@
     <style name="Header1.Dark">
         <item name="android:textColor">@color/text_dark_L1</item>
     </style>
+
     <style name="Header1.Light">
         <item name="android:textColor">@color/text_light_L1</item>
     </style>
+
     <style name="Header2.Dark">
         <item name="android:textColor">@color/text_dark_L2</item>
     </style>
+
     <style name="Header2.Light">
         <item name="android:textColor">@color/text_light_L2</item>
     </style>
+
     <style name="NormalText.Dark">
         <item name="android:textColor">@color/text_dark_L3</item>
     </style>
+
     <style name="NormalText.Light">
         <item name="android:textColor">@color/text_light_L3</item>
     </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

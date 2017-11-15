@@ -1,4 +1,4 @@
-package cs.sci.ku.cookyalpha.fragments;
+package cs.sci.ku.cookyalpha.fragments.recipe.editor;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,9 +16,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
-
-import com.google.firebase.storage.StorageReference;
 
 import java.io.ByteArrayOutputStream;
 

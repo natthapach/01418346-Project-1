@@ -2,15 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <FrameLayout
+    <!--<FrameLayout-->
+        <!--android:background="@color/DarkBackground"-->
+        <!--android:paddingRight="@dimen/spacing"-->
+        <!--android:paddingLeft="@dimen/spacing"-->
+        <!--android:paddingTop="@dimen/spacing"-->
+        <!--android:id="@+id/container_frame"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:layout_weight="9"/>-->
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
         android:background="@color/DarkBackground"
-        android:paddingRight="@dimen/spacing"
-        android:paddingLeft="@dimen/spacing"
-        android:paddingTop="@dimen/spacing"
-        android:id="@+id/container_frame"
+        android:layout_weight="9"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="9"/>
+        android:layout_height="0dp"/>
     <Button
         style="@style/Header1.Light"
         android:textColor="#FFF"

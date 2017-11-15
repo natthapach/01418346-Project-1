@@ -2,6 +2,7 @@
     <string name="app_name">CookyAlpha</string>
     <string name="open_drawer">Open menu</string>
     <string name="close_drawer">Close menu</string>
+
     <string name="recipe_name_label">Name</string>
     <string name="recipe_name_hint">Recipe name</string>
     <string name="recipe_description_label">Description</string>
@@ -10,5 +11,14 @@
     <string name="recipe_people_label">For People</string>
     <string name="recipe_preview_image">Preview Image</string>
     <string name="select">Select</string>
+
+    <string name="ingredient_property_name">Name</string>
+    <string name="ingredient_property_name_hint">Sugar</string>
+    <string name="ingredient_property_amt">Amount</string>
+    <string name="ingredient_property_amt_hint">1 tea spoon</string>
+    <string name="ingredient_submit">Submit</string>
+    <string name="ingredient_delete">Delete</string>
+
     <string name="menu_create">Create</string>
+    <string name="title_activity_main2">Main2Activity</string>
 </resources>

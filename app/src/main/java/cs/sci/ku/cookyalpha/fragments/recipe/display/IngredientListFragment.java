@@ -1,4 +1,4 @@
-package cs.sci.ku.cookyalpha.fragments;
+package cs.sci.ku.cookyalpha.fragments.recipe.display;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,29 +10,26 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
 
 import cs.sci.ku.cookyalpha.R;
+import cs.sci.ku.cookyalpha.dao.Ingredient;
 import cs.sci.ku.cookyalpha.dao.Recipe;
-import cs.sci.ku.cookyalpha.dao.RecipeProcedure;
 import cs.sci.ku.cookyalpha.managers.FirebaseRecipeManager;
 import cs.sci.ku.cookyalpha.utils.Contextor;
 import cs.sci.ku.cookyalpha.views.IngredientItemView;
-import cs.sci.ku.cookyalpha.views.ProcedureItemView;
 
 /**
  * Created by MegapiesPT on 10/11/2560.
  */
 
-public class ProcedureListFragment extends Fragment {
+public class IngredientListFragment extends Fragment {
 
     private Recipe recipe;
-    private ListView procedureListView;
-    private ArrayList<RecipeProcedure> procedures;
+    private ListView ingredientListView;
+    private ArrayList<Ingredient> ingredients;
 
-    public static ProcedureListFragment newInstance(String recipeId){
-        ProcedureListFragment instance = new ProcedureListFragment();
+    public static IngredientListFragment newInstance(String recipeId){
+        IngredientListFragment instance = new IngredientListFragment();
         /*
             set parameter to argument
          */
@@ -53,11 +50,7 @@ public class ProcedureListFragment extends Fragment {
          */
         String recipeId = getArguments().getString("recipeId");
         recipe = FirebaseRecipeManager.getInstance().getRecipe(recipeId);
-        Map<String, RecipeProcedure> sortedProcedure = new TreeMap<>(recipe.procedures);
-        procedures = new ArrayList<>();
-//        for (RecipeProcedure procedure : sortedProcedure.values())
-//            procedures.add(procedure);
-        procedures.addAll(sortedProcedure.values());
+        ingredients = new ArrayList<>(recipe.ingredients.values());
     }
 
     @Nullable
@@ -65,22 +58,22 @@ public class ProcedureListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_procedure_list, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_ingredient_list, container, false);
         initInstance(rootView);
         return  rootView;
     }
 
     private void initInstance(View rootView) {
-        procedureListView = rootView.findViewById(R.id.lv_procedure);
-        procedureListView.setAdapter(new BaseAdapter() {
+        ingredientListView = rootView.findViewById(R.id.lv_ingredients);
+        ingredientListView.setAdapter(new BaseAdapter() {
             @Override
             public int getCount() {
-                return recipe.procedures.size();
+                return recipe.ingredients.size();
             }
 
             @Override
             public Object getItem(int i) {
-                return procedures.get(i);
+                return ingredients.get(i);
             }
 
             @Override
@@ -91,12 +84,12 @@ public class ProcedureListFragment extends Fragment {
             @Override
             public View getView(int i, View view, ViewGroup viewGroup) {
                 if (view == null)
-                    view = new ProcedureItemView(Contextor.getInstance().getContext());
-                ProcedureItemView pview = (ProcedureItemView) view;
-                pview.setProcedure(procedures.get(i));
+                    view = new IngredientItemView(Contextor.getInstance().getContext());
+                IngredientItemView iview = (IngredientItemView) view;
+                iview.setIngredient(ingredients.get(i));
                 if (i == 0)
-                    pview.enableTopMargin();
-                return pview;
+                    iview.enableTopMargin();
+                return iview;
             }
         });
     }

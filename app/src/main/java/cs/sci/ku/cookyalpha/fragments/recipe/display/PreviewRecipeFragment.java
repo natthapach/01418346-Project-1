@@ -1,4 +1,4 @@
-package cs.sci.ku.cookyalpha.fragments;
+package cs.sci.ku.cookyalpha.fragments.recipe.display;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
