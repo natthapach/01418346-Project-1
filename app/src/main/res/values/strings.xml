@@ -10,4 +10,5 @@
     <string name="recipe_people_label">For People</string>
     <string name="recipe_preview_image">Preview Image</string>
     <string name="select">Select</string>
+    <string name="menu_create">Create</string>
 </resources>

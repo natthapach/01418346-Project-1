@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <FrameLayout
+        android:background="@color/DarkBackground"
+        android:paddingRight="@dimen/spacing"
+        android:paddingLeft="@dimen/spacing"
+        android:paddingTop="@dimen/spacing"
+        android:id="@+id/container_frame"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"/>
+    <Button
+        style="@style/Header1.Light"
+        android:textColor="#FFF"
+        android:background="@color/colorPrimary"
+        android:text="POST"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+</LinearLayout>

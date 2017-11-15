@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cs.sci.ku.cookyalpha">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
     <application
         android:name=".MainApplication"
         android:allowBackup="true"
@@ -19,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.RecipeActivity"></activity>
+        <activity android:name=".activities.EditRecipeActivity"></activity>
     </application>
 
 </manifest>

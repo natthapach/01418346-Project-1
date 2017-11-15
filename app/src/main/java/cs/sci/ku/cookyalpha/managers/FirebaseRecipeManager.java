@@ -1,13 +1,20 @@
 package cs.sci.ku.cookyalpha.managers;
 
+import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -109,6 +116,32 @@ public class FirebaseRecipeManager implements RecipeManager{
     }
     public Recipe getRecipe(String id){
         return recipeMap.get(id);
+    }
+    public List<String> getCategories(){
+        List<String> categories = new ArrayList<>();
+        categories.add("Breakfast");
+        categories.add("Lunch");
+        categories.add("Dinner");
+        return categories;
+    }
+    public void uploadPreview(byte[] data){
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+        StorageReference mountainsRef = storageRef.child("mountains.jpg");
+        UploadTask uploadTask = mountainsRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                Log.d("Upload sucess", downloadUrl + "");
+            }
+        });
     }
     public List<Recipe> addObserver(RecipeObserver observer){
         observers.add(observer);

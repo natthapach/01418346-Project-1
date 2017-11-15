@@ -10,6 +10,7 @@ import com.google.firebase.database.PropertyName;
 @IgnoreExtraProperties
 public class RecipePreview {
     @PropertyName("img") public String imgUrl;
+    public byte[] datas;
 
     public RecipePreview(String imgUrl) {
         this.imgUrl = imgUrl;

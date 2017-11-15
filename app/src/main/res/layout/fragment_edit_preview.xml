@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/DarkBackground"
-    android:padding="@dimen/spacing">
+    android:background="@color/DarkBackground">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -61,11 +60,16 @@
                     android:text="@string/recipe_category_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-                <Spinner
-                    android:id="@+id/spin_category"
+                <LinearLayout
+                    android:background="@drawable/shape_rounded"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
-                </Spinner>
+                    <Spinner
+                        android:id="@+id/spin_category"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+                    </Spinner>
+                </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:orientation="vertical"
@@ -77,18 +81,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <ImageView
-                    android:background="@color/text_light_L1"
-                    android:minHeight="150dp"
+                    android:scaleType="centerCrop"
                     android:id="@+id/iv_preview"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"/>
                 <Button
+                    android:id="@+id/btn_select"
                     android:backgroundTint="@color/indicator_selected"
                     android:text="@string/select"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
+            <Button
+                android:text="upload"
+                android:id="@+id/btn_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </ScrollView>
-
 </LinearLayout>
