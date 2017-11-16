@@ -1,5 +1,8 @@
 package cs.sci.ku.cookyalpha.dao;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.firebase.database.PropertyName;
 
@@ -11,7 +14,7 @@ import java.util.Map;
  */
 
 @IgnoreExtraProperties
-public class Recipe {
+public class Recipe implements Parcelable{
     public String id;
     @PropertyName("description")    public String description;
     @PropertyName("like")           public Map<String, Like> like;
@@ -36,8 +39,45 @@ public class Recipe {
         this.preview = preview;
     }
 
+    protected Recipe(Parcel in) {
+        id = in.readString();
+        description = in.readString();
+        name = in.readString();
+        ownerId = in.readString();
+        createdTime = in.readString();
+        preview = in.readParcelable(RecipePreview.class.getClassLoader());
+    }
+
+    public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
+        @Override
+        public Recipe createFromParcel(Parcel in) {
+            return new Recipe(in);
+        }
+
+        @Override
+        public Recipe[] newArray(int size) {
+            return new Recipe[size];
+        }
+    };
+
     @Override
     public String toString() {
         return String.format("Recipe { id:%s, name:%s, description:%s, like:%s, owner:%s, time:%s, ingredients:%s, procedures:%s, preview:%s}", id, name, description, like, ownerId, createdTime, ingredients, procedures, preview);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(description);
+        parcel.writeString(name);
+        parcel.writeString(ownerId);
+        parcel.writeString(createdTime);
+        parcel.writeParcelable(preview, i);
+        // TODO write parcel map (Like, Ingredient, procedure)
     }
 }
