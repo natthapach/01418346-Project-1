@@ -1,5 +1,6 @@
 package cs.sci.ku.cookyalpha.dao;
 
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -14,6 +15,7 @@ import com.google.firebase.database.PropertyName;
 public class RecipePreview implements Parcelable {
     @PropertyName("img") public String imgUrl;
     public byte[] datas;
+    public Uri uri;
 
     public RecipePreview(String imgUrl) {
         this.imgUrl = imgUrl;
@@ -23,9 +25,11 @@ public class RecipePreview implements Parcelable {
 
     }
 
+
     protected RecipePreview(Parcel in) {
         imgUrl = in.readString();
         datas = in.createByteArray();
+        uri = in.readParcelable(Uri.class.getClassLoader());
     }
 
     public static final Creator<RecipePreview> CREATOR = new Creator<RecipePreview>() {
@@ -42,7 +46,7 @@ public class RecipePreview implements Parcelable {
 
     @Override
     public String toString() {
-        return "Preview{ imgUrl:" + imgUrl + "}";
+        return "Preview{ imgUrl:" + imgUrl + ", datas: " + datas + "}";
     }
 
     @Override
@@ -54,5 +58,6 @@ public class RecipePreview implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(imgUrl);
         parcel.writeByteArray(datas);
+        parcel.writeParcelable(uri, i);
     }
 }

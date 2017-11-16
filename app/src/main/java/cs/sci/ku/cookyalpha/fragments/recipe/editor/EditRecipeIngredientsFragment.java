@@ -7,8 +7,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -102,5 +104,36 @@ public class EditRecipeIngredientsFragment extends Fragment {
             }
         };
         ingredientsListView.setAdapter(ingredientsAdapter);
+        ingredientsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view,final int i, long l) {
+                View dialog = getLayoutInflater().inflate(R.layout.view_ingredient_property, null);
+                final EditText nameEditText = dialog.findViewById(R.id.et_name);
+                final EditText amtEditText = dialog.findViewById(R.id.et_amt);
+                final Ingredient ingredient = ingredients.get(i);
+                nameEditText.setText(ingredient.name);
+                amtEditText.setText(ingredient.amount);
+
+                new AlertDialog.Builder(getContext())
+                        .setView(dialog)
+                        .setPositiveButton(R.string.ingredient_submit, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int j) {
+                                ingredients.get(i).name = nameEditText.getText().toString();
+                                ingredients.get(i).amount = amtEditText.getText().toString();
+                                ingredientsAdapter.notifyDataSetChanged();
+                            }
+                        })
+                        .setNegativeButton(R.string.ingredient_delete, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int j) {
+                                ingredients.remove(i);
+                                ingredientsAdapter.notifyDataSetChanged();
+                            }
+                        })
+                        .create()
+                        .show();
+            }
+        });
     }
 }

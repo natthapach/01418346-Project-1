@@ -1,13 +1,13 @@
 package cs.sci.ku.cookyalpha.fragments.recipe.editor;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +15,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 
-import java.io.ByteArrayOutputStream;
+import com.bumptech.glide.Glide;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import cs.sci.ku.cookyalpha.R;
+import cs.sci.ku.cookyalpha.dao.RecipePreview;
 import cs.sci.ku.cookyalpha.managers.FirebaseRecipeManager;
 
 /**
@@ -35,6 +40,8 @@ public class EditRecipePreviewFragment extends Fragment {
     private int selectImageRequestCode = 100;
     private ImageView previewImageView;
     private Button uploadButton;
+    private RecipePreview preview;
+    private LinearLayout imageContainer;
 
     public static EditRecipePreviewFragment newInstance(){
         EditRecipePreviewFragment instance = new EditRecipePreviewFragment();
@@ -52,17 +59,37 @@ public class EditRecipePreviewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_edit_preview, container, false);
+        if (savedInstanceState != null) {
+            Log.d("onCreateView", "preview" + savedInstanceState.getParcelable("preview"));
+            preview = savedInstanceState.getParcelable("preview");
+            Log.d("preview datas", new ArrayList<>(Arrays.asList(preview.datas)).toString());
+        }
         initInstance(rootView);
         return rootView;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (preview.imgUrl != null)
+            Glide.with(getContext()).load(preview.imgUrl).into(previewImageView);
+        else if (preview.datas != null) {
+            Glide.with(getContext()).load(preview.datas).into(previewImageView);
+        } else if (preview.uri != null){
+            previewImageView.setImageURI(preview.uri);
+        }
+    }
+
     private void initInstance(View rootView) {
+        if (preview == null) {
+            preview = new RecipePreview();
+        }
+
         nameEditText = rootView.findViewById(R.id.et_name);
         descriptionEditText = rootView.findViewById(R.id.et_description);
         categorySpinner = rootView.findViewById(R.id.spin_category);
         selectImgButton = rootView.findViewById(R.id.btn_select);
         previewImageView = rootView.findViewById(R.id.iv_preview);
-        uploadButton = rootView.findViewById(R.id.btn_up);
 
         categorySpinner.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_dropdown_item, FirebaseRecipeManager.getInstance().getCategories()));
         selectImgButton.setOnClickListener(new View.OnClickListener() {
@@ -70,16 +97,6 @@ public class EditRecipePreviewFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(intent, selectImageRequestCode);
-            }
-        });
-        uploadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bitmap bitmap = ((BitmapDrawable) previewImageView.getDrawable()).getBitmap();
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                byte[] imageInByte = baos.toByteArray();
-                FirebaseRecipeManager.getInstance().uploadPreview(imageInByte);
             }
         });
     }
@@ -91,6 +108,13 @@ public class EditRecipePreviewFragment extends Fragment {
         if (requestCode == selectImageRequestCode && data != null){
             Uri uri = data.getData();
             previewImageView.setImageURI(uri);
+            preview.uri = uri;
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putParcelable("preview", preview);
+        super.onSaveInstanceState(outState);
     }
 }

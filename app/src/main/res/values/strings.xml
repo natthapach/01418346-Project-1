@@ -19,6 +19,8 @@
     <string name="ingredient_submit">Submit</string>
     <string name="ingredient_delete">Delete</string>
 
+    <string name="procedure_description">Description</string>
+    <string name="procedure_description_hint">fill water to bottle</string>
     <string name="menu_create">Create</string>
     <string name="title_activity_main2">Main2Activity</string>
 </resources>
