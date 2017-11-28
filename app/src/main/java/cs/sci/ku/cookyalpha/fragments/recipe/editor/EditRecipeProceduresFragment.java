@@ -24,6 +24,7 @@ import java.util.List;
 import cs.sci.ku.cookyalpha.R;
 import cs.sci.ku.cookyalpha.dao.Ingredient;
 import cs.sci.ku.cookyalpha.dao.RecipeProcedure;
+import cs.sci.ku.cookyalpha.utils.RecipeEditorCarrier;
 import cs.sci.ku.cookyalpha.views.IngredientItemView;
 import cs.sci.ku.cookyalpha.views.ProcedureItemView;
 import cs.sci.ku.cookyalpha.views.ProcedurePropertyView;
@@ -32,7 +33,7 @@ import cs.sci.ku.cookyalpha.views.ProcedurePropertyView;
  * Created by MegapiesPT on 15/11/2560.
  */
 
-public class EditRecipeProceduresFragment extends Fragment {
+public class EditRecipeProceduresFragment extends Fragment implements OnConfirmEditor{
 
     private FloatingActionButton newButton;
     private ListView proceduresListView;
@@ -142,7 +143,21 @@ public class EditRecipeProceduresFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putParcelableArrayList("procedures", procedures);
+        setProceduresToRecipe();
         super.onSaveInstanceState(outState);
         Log.d("edit procedure fr", "onSaveInstanceStage");
+    }
+
+    public List<RecipeProcedure> getProcedures(){
+        return procedures;
+    }
+
+    private void setProceduresToRecipe(){
+        RecipeEditorCarrier.getInstance().getRecipe().setProceduresList(procedures);
+    }
+
+    @Override
+    public void onConfirm() {
+        setProceduresToRecipe();
     }
 }

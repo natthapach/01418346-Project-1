@@ -7,6 +7,8 @@ import android.os.Parcelable;
 import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.firebase.database.PropertyName;
 
+import java.util.Arrays;
+
 /**
  * Created by MegapiesPT on 31/10/2560.
  */
@@ -46,7 +48,11 @@ public class RecipePreview implements Parcelable {
 
     @Override
     public String toString() {
-        return "Preview{ imgUrl:" + imgUrl + ", datas: " + datas + "}";
+        return "RecipePreview{" +
+                "imgUrl='" + imgUrl + '\'' +
+                ", datas=" + Arrays.toString(datas) +
+                ", uri=" + uri +
+                '}';
     }
 
     @Override

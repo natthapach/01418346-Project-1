@@ -2,6 +2,7 @@ package cs.sci.ku.cookyalpha.fragments.recipe.editor;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -15,22 +16,25 @@ import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 import cs.sci.ku.cookyalpha.R;
 import cs.sci.ku.cookyalpha.dao.Ingredient;
+import cs.sci.ku.cookyalpha.dao.Recipe;
+import cs.sci.ku.cookyalpha.utils.RecipeEditorCarrier;
 import cs.sci.ku.cookyalpha.views.IngredientItemView;
 
 /**
  * Created by MegapiesPT on 15/11/2560.
  */
 
-public class EditRecipeIngredientsFragment extends Fragment {
+public class EditRecipeIngredientsFragment extends Fragment implements OnConfirmEditor {
 
     private FloatingActionButton newButton;
     private ListView ingredientsListView;
-    private List<Ingredient> ingredients;
+    private ArrayList<Ingredient> ingredients;
     private BaseAdapter ingredientsAdapter;
 
     public static EditRecipeIngredientsFragment newInstance(){
@@ -135,5 +139,25 @@ public class EditRecipeIngredientsFragment extends Fragment {
                         .show();
             }
         });
+    }
+
+    public List<Ingredient> getIngredients(){
+        return ingredients;
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putParcelableArrayList("ingredients", ingredients);
+        setIngredientsToRecipe();
+        super.onSaveInstanceState(outState);
+    }
+
+    private void setIngredientsToRecipe(){
+        RecipeEditorCarrier.getInstance().getRecipe().setIngredientsList(this.ingredients);
+    }
+
+    @Override
+    public void onConfirm() {
+        setIngredientsToRecipe();
     }
 }

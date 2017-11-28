@@ -1,15 +1,21 @@
 package cs.sci.ku.cookyalpha.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import cs.sci.ku.cookyalpha.R;
+import cs.sci.ku.cookyalpha.dao.Recipe;
 import cs.sci.ku.cookyalpha.fragments.recipe.editor.EditRecipeIngredientsFragment;
 import cs.sci.ku.cookyalpha.fragments.recipe.editor.EditRecipePreviewFragment;
 import cs.sci.ku.cookyalpha.fragments.recipe.editor.EditRecipeProceduresFragment;
+import cs.sci.ku.cookyalpha.utils.RecipeEditorCarrier;
 
 /**
  * Created by MegapiesPT on 14/11/2560.
@@ -21,6 +27,7 @@ public class EditRecipeActivity extends AppCompatActivity {
     private EditRecipePreviewFragment editPreviewFragment;
     private EditRecipeIngredientsFragment editIngredientsFragment;
     private EditRecipeProceduresFragment editRecipeProceduresFragment;
+    private Button postButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +46,20 @@ public class EditRecipeActivity extends AppCompatActivity {
         editPreviewFragment = EditRecipePreviewFragment.newInstance();
         editIngredientsFragment = EditRecipeIngredientsFragment.newInstance();
         editRecipeProceduresFragment = EditRecipeProceduresFragment.newInstance();
+        postButton = findViewById(R.id.btn_post);
+
+        postButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent intent = new Intent(EditRecipeActivity.this, RecipeActivity.class);
+//                intent.putExtra("recipe", RecipeEditorCarrier.getInstance().getRecipe());
+//                startActivity(intent);
+                editRecipeProceduresFragment.onConfirm();
+                editIngredientsFragment.onConfirm();
+                editPreviewFragment.onConfirm();
+                Log.d("recipe", RecipeEditorCarrier.getInstance().getRecipe().toString());
+            }
+        });
 
         viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
@@ -60,6 +81,8 @@ public class EditRecipeActivity extends AppCompatActivity {
                 return null;
             }
         });
+
+        RecipeEditorCarrier.getInstance().init();
     }
 
 

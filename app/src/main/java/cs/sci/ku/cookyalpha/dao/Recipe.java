@@ -1,11 +1,13 @@
 package cs.sci.ku.cookyalpha.dao;
 
+import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.firebase.database.PropertyName;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +27,10 @@ public class Recipe implements Parcelable{
     @PropertyName("procedure")      public Map<String, RecipeProcedure> procedures;
     @PropertyName("preview")        public RecipePreview preview;
 
-    public Recipe() {}
+    public Recipe() {
+        ingredients = new HashMap<>();
+        procedures = new HashMap<>();
+    }
 
     public Recipe(String id, String description, Map<String, Like> like, String name, String ownerId, String createdTime, Map<String, Ingredient> ingredients, Map<String, RecipeProcedure> procedures, RecipePreview preview) {
         this.id = id;
@@ -46,6 +51,8 @@ public class Recipe implements Parcelable{
         ownerId = in.readString();
         createdTime = in.readString();
         preview = in.readParcelable(RecipePreview.class.getClassLoader());
+        in.readMap(this.procedures, RecipeProcedure.class.getClassLoader());
+        in.readMap(this.ingredients, Ingredient.class.getClassLoader());
     }
 
     public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
@@ -79,5 +86,21 @@ public class Recipe implements Parcelable{
         parcel.writeString(createdTime);
         parcel.writeParcelable(preview, i);
         // TODO write parcel map (Like, Ingredient, procedure)
+        parcel.writeMap(procedures);
+        parcel.writeMap(ingredients);
+    }
+
+    public void setIngredientsList(List<Ingredient> ingredientsList){
+        ingredients.clear();
+        for (int i=0; i<ingredientsList.size(); i++)
+            ingredients.put(i+"", ingredientsList.get(i));
+    }
+    public void setProceduresList(List<RecipeProcedure> proceduresList){
+        procedures.clear();
+        for(int i=0; i<proceduresList.size(); i++)
+            procedures.put(i + "", proceduresList.get(i));
+    }
+    public void setPreview(RecipePreview preview){
+        this.preview = preview;
     }
 }

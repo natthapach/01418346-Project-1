@@ -26,12 +26,13 @@ import java.util.Arrays;
 import cs.sci.ku.cookyalpha.R;
 import cs.sci.ku.cookyalpha.dao.RecipePreview;
 import cs.sci.ku.cookyalpha.managers.FirebaseRecipeManager;
+import cs.sci.ku.cookyalpha.utils.RecipeEditorCarrier;
 
 /**
  * Created by MegapiesPT on 14/11/2560.
  */
 
-public class EditRecipePreviewFragment extends Fragment {
+public class EditRecipePreviewFragment extends Fragment implements OnConfirmEditor {
 
     private EditText nameEditText;
     private EditText descriptionEditText;
@@ -115,6 +116,22 @@ public class EditRecipePreviewFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putParcelable("preview", preview);
+        setPreviewToRecipe();
         super.onSaveInstanceState(outState);
+    }
+
+    public RecipePreview getPreview(){
+        return preview;
+    }
+
+    private void setPreviewToRecipe(){
+        RecipeEditorCarrier.getInstance().getRecipe().preview = preview;
+        RecipeEditorCarrier.getInstance().getRecipe().name = nameEditText.getText().toString();
+        RecipeEditorCarrier.getInstance().getRecipe().description = descriptionEditText.getText().toString();
+    }
+
+    @Override
+    public void onConfirm() {
+        setPreviewToRecipe();
     }
 }
