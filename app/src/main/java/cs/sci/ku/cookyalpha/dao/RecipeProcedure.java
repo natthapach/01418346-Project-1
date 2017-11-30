@@ -3,6 +3,7 @@ package cs.sci.ku.cookyalpha.dao;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.firebase.database.PropertyName;
 
@@ -17,7 +18,7 @@ import cs.sci.ku.cookyalpha.callbacks.ImageUrlSettable;
 public class RecipeProcedure implements Parcelable, ImageUrlSettable{
     @PropertyName("img")            public String imgUrl;
     @PropertyName("description")    public String description;
-    public byte[] datas;
+    @Exclude public byte[] datas;
 
     public RecipeProcedure() {
     }
@@ -69,5 +70,13 @@ public class RecipeProcedure implements Parcelable, ImageUrlSettable{
     @Override
     public void setImageUrl(String url) {
         this.imgUrl = url;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

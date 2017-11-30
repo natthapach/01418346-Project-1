@@ -57,4 +57,12 @@ public class Ingredient implements Parcelable{
         parcel.writeString(name);
         parcel.writeString(amount);
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
 }

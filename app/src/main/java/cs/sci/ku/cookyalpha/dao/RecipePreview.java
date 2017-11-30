@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.firebase.database.PropertyName;
 
@@ -18,8 +19,8 @@ import cs.sci.ku.cookyalpha.callbacks.ImageUrlSettable;
 @IgnoreExtraProperties
 public class RecipePreview implements Parcelable, ImageUrlSettable {
     @PropertyName("img") public String imgUrl;
-    public byte[] datas;
-    public Uri uri;
+    @Exclude public byte[] datas;
+    @Exclude public Uri uri;
 
     public RecipePreview(String imgUrl) {
         this.imgUrl = imgUrl;
@@ -72,5 +73,9 @@ public class RecipePreview implements Parcelable, ImageUrlSettable {
     @Override
     public void setImageUrl(String url) {
         this.imgUrl = url;
+    }
+
+    public String getImgUrl() {
+        return imgUrl;
     }
 }

@@ -83,8 +83,27 @@ public class RecipeUploader {
                     nextTask();
                 }
             });
-        }
+        } else{
+//            callback.onComplete(recipe.id);
 
-        callback.onComplete(recipe.id);
+        uploadData();
+        }
+    }
+
+    private void uploadData(){
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("recipe").child(recipe.id);
+        ref.setValue(recipe)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        callback.onComplete(recipe.id);
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        callback.onFailure();
+                    }
+                });
     }
 }

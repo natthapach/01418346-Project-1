@@ -48,4 +48,8 @@ public class Like implements Parcelable{
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(userId);
     }
+
+    public String getUserId() {
+        return userId;
+    }
 }

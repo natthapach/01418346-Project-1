@@ -93,16 +93,48 @@ public class Recipe implements Parcelable{
     public void setIngredientsList(List<Ingredient> ingredientsList){
         ingredients.clear();
         for (int i=0; i<ingredientsList.size(); i++)
-            ingredients.put(i+"", ingredientsList.get(i));
+            ingredients.put("I"+i, ingredientsList.get(i));
     }
     public void setProceduresList(List<RecipeProcedure> proceduresList){
         if (proceduresList == null)
             return;
         procedures.clear();
         for(int i=0; i<proceduresList.size(); i++)
-            procedures.put(i + "", proceduresList.get(i));
+            procedures.put("P"+i, proceduresList.get(i));
     }
     public void setPreview(RecipePreview preview){
         this.preview = preview;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Map<String, Like> getLike() {
+        return like;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public String getCreatedTime() {
+        return createdTime;
+    }
+
+    public Map<String, Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public Map<String, RecipeProcedure> getProcedures() {
+        return procedures;
+    }
+
+    public RecipePreview getPreview() {
+        return preview;
     }
 }
