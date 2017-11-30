@@ -96,6 +96,8 @@ public class Recipe implements Parcelable{
             ingredients.put(i+"", ingredientsList.get(i));
     }
     public void setProceduresList(List<RecipeProcedure> proceduresList){
+        if (proceduresList == null)
+            return;
         procedures.clear();
         for(int i=0; i<proceduresList.size(); i++)
             procedures.put(i + "", proceduresList.get(i));

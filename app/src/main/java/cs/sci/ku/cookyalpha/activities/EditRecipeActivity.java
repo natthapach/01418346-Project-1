@@ -11,10 +11,12 @@ import android.view.View;
 import android.widget.Button;
 
 import cs.sci.ku.cookyalpha.R;
+import cs.sci.ku.cookyalpha.callbacks.UploadRecipeCallback;
 import cs.sci.ku.cookyalpha.dao.Recipe;
 import cs.sci.ku.cookyalpha.fragments.recipe.editor.EditRecipeIngredientsFragment;
 import cs.sci.ku.cookyalpha.fragments.recipe.editor.EditRecipePreviewFragment;
 import cs.sci.ku.cookyalpha.fragments.recipe.editor.EditRecipeProceduresFragment;
+import cs.sci.ku.cookyalpha.managers.FirebaseRecipeManager;
 import cs.sci.ku.cookyalpha.utils.RecipeEditorCarrier;
 
 /**
@@ -58,6 +60,17 @@ public class EditRecipeActivity extends AppCompatActivity {
                 editIngredientsFragment.onConfirm();
                 editPreviewFragment.onConfirm();
                 Log.d("recipe", RecipeEditorCarrier.getInstance().getRecipe().toString());
+                FirebaseRecipeManager.getInstance().uploadRecipe(RecipeEditorCarrier.getInstance().getRecipe(), new UploadRecipeCallback() {
+                    @Override
+                    public void onComplete(String recipeId) {
+
+                    }
+
+                    @Override
+                    public void onFailure() {
+
+                    }
+                });
             }
         });
 

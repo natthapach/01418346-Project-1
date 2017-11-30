@@ -9,12 +9,14 @@ import com.google.firebase.database.PropertyName;
 
 import java.util.Arrays;
 
+import cs.sci.ku.cookyalpha.callbacks.ImageUrlSettable;
+
 /**
  * Created by MegapiesPT on 31/10/2560.
  */
 
 @IgnoreExtraProperties
-public class RecipePreview implements Parcelable {
+public class RecipePreview implements Parcelable, ImageUrlSettable {
     @PropertyName("img") public String imgUrl;
     public byte[] datas;
     public Uri uri;
@@ -65,5 +67,10 @@ public class RecipePreview implements Parcelable {
         parcel.writeString(imgUrl);
         parcel.writeByteArray(datas);
         parcel.writeParcelable(uri, i);
+    }
+
+    @Override
+    public void setImageUrl(String url) {
+        this.imgUrl = url;
     }
 }

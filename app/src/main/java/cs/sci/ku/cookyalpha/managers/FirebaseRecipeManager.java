@@ -4,8 +4,10 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import cs.sci.ku.cookyalpha.callbacks.UploadRecipeCallback;
 import cs.sci.ku.cookyalpha.dao.Recipe;
 
 /**
@@ -123,6 +126,51 @@ public class FirebaseRecipeManager implements RecipeManager{
         categories.add("Lunch");
         categories.add("Dinner");
         return categories;
+    }
+    public void uploadRecipe(final Recipe recipe, UploadRecipeCallback callback){
+        Log.d("uploadRecipe", "in uploadRecipe");
+        RecipeUploader uploader = new RecipeUploader(recipe, new UploadRecipeCallback() {
+            @Override
+            public void onComplete(String recipeId) {
+                Log.d("upload complete", "recipe id " + recipeId);
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
+        uploader.upload();
+    }
+    public void uploadImage(Uri uri, String name, OnFailureListener onFailureListener, OnSuccessListener<UploadTask.TaskSnapshot> onSuccessListener){
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+        StorageReference mountainsRef = storageRef.child(name);
+//        UploadTask uploadTask = mountainsRef.putBytes(data);
+        UploadTask uploadTask = mountainsRef.putFile(uri);
+        uploadTask.addOnFailureListener(onFailureListener)
+                .addOnSuccessListener(onSuccessListener);
+    }
+    public void uploadImage(byte[] data, String name, OnFailureListener onFailureListener, OnSuccessListener<UploadTask.TaskSnapshot> onSuccessListener){
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageRef = storage.getReference();
+        StorageReference mountainsRef = storageRef.child(name);
+        UploadTask uploadTask = mountainsRef.putBytes(data);
+        uploadTask.addOnFailureListener(onFailureListener)
+                .addOnSuccessListener(onSuccessListener);
+//        uploadTask.addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception exception) {
+//                // Handle unsuccessful uploads
+//            }
+//        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//            @Override
+//            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+//                Uri downloadUrl = taskSnapshot.getDownloadUrl();
+//                Log.d("Upload sucess", downloadUrl + "");
+//            }
+//        });
     }
     public void uploadPreview(byte[] data){
         FirebaseStorage storage = FirebaseStorage.getInstance();
