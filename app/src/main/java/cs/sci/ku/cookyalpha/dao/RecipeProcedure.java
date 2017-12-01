@@ -51,7 +51,6 @@ public class RecipeProcedure implements Parcelable, ImageUrlSettable{
         return "RecipeProcedure{" +
                 "imgUrl='" + imgUrl + '\'' +
                 ", description='" + description + '\'' +
-                ", datas=" + Arrays.toString(datas) +
                 '}';
     }
 

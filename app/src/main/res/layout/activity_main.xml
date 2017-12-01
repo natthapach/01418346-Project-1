@@ -39,6 +39,24 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="150dp">
+            <ImageView
+                android:id="@+id/iv_profile"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+            <TextView
+                android:text="User name"
+                style="@style/Header2.Light"
+                android:id="@+id/tv_user_name"
+                android:maxLines="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:text="email"
+                android:id="@+id/tv_email"
+                style="@style/NormalText.Light"
+                android:maxLines="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
         <LinearLayout
             android:orientation="vertical"

@@ -1,5 +1,8 @@
 package cs.sci.ku.cookyalpha.utils;
 
+import android.util.Log;
+
+import cs.sci.ku.cookyalpha.callbacks.ProfileCarrierListener;
 import cs.sci.ku.cookyalpha.dao.User;
 
 /**
@@ -9,6 +12,7 @@ import cs.sci.ku.cookyalpha.dao.User;
 public class UserProfileCarrier {
     private static UserProfileCarrier instance;
     private User user;
+    private ProfileCarrierListener listener;
 
     public static UserProfileCarrier getInstance(){
         if (instance == null)
@@ -17,7 +21,7 @@ public class UserProfileCarrier {
     }
 
     private UserProfileCarrier() {
-        user = new User("user001", "uid001");
+//        user = new User("user001", "uid001");
     }
 
 
@@ -27,6 +31,14 @@ public class UserProfileCarrier {
     }
 
     public void setUser(User user) {
+        Log.d("set user" , user + "");
+        Log.d("set user" , listener + "");
         this.user = user;
+        if (listener != null)
+            listener.onProfileChange();
+    }
+
+    public void setListener(ProfileCarrierListener listener) {
+        this.listener = listener;
     }
 }

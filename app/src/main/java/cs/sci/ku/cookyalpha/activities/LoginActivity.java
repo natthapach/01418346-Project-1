@@ -117,7 +117,7 @@ public class LoginActivity extends AppCompatActivity {
 
                             loadProfile();
 //                            DatabaseManager.getInstance().init();
-                            getProfile();
+//                            getProfile();
 //
 //                            gotoMainActivity();
                         }else{
@@ -138,32 +138,6 @@ public class LoginActivity extends AppCompatActivity {
                 carrier.setUser(obj);
             }
         });
-    }
-    private void getProfile(){
-        Log.d("get profile", "Token user id " + AccessToken.getCurrentAccessToken().getUserId());
-        Bundle params = new Bundle();
-        params.putString("fields", "id,name,email,gender,cover,picture.type(large)");
-        new GraphRequest(AccessToken.getCurrentAccessToken(), "me", params, HttpMethod.GET,
-                new GraphRequest.Callback() {
-                    public void onCompleted(GraphResponse response) {
-                        Log.d("get profile", "profile response " + response);
-                        try{
-                            if(response != null){
-                            /* handle the result */
-                                JSONObject data = response.getJSONObject();
-                                Log.d("get profile", "Json data " + data);
-                                if(data.has("picture")){
-                                    String profilePicUrl = data.getJSONObject("picture").getJSONObject("data").getString("url");
-                                    Log.d("get profile","profile url " + profilePicUrl);
-                                }
-                            }
-                        }catch (JSONException e){
-                            e.printStackTrace();
-                        }
-
-                    }
-                }
-        ).executeAsync();
     }
 
     @Override
