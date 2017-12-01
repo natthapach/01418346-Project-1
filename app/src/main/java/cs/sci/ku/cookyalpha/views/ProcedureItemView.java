@@ -63,14 +63,16 @@ public class ProcedureItemView extends FrameLayout {
     public void setProcedure(RecipeProcedure procedure){
         this.procedure = procedure;
         descriptionTextView.setText(procedure.description);
-        if (procedure.imgUrl != null)
+
+        if (procedure.datas != null)
             Glide.with(getContext())
-                .load(procedure.imgUrl)
-                .into(imageImageView);
-        else if (procedure.datas != null)
-            Glide.with(getContext())
+                .asBitmap()
                 .load(procedure.datas)
                 .into(imageImageView);
+        else if (procedure.imgUrl != null)
+            Glide.with(getContext())
+                    .load(procedure.imgUrl)
+                    .into(imageImageView);
     }
     public void enableTopMargin(){
         @SuppressLint("WrongViewCast") LinearLayout rootLayout = findViewById(R.id.root);

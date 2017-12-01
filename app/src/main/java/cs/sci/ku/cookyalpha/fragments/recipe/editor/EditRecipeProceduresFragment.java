@@ -117,6 +117,7 @@ public class EditRecipeProceduresFragment extends Fragment implements OnConfirmE
                                         procedures.add(procedurePropertyView.getProcedure());
                                         proceduresAdapter.notifyDataSetChanged();
                                         Log.d("procedures size", procedures.size() + "");
+                                        Log.d("procedues", procedures.toString());
                                 }
                             })
                             .create()
