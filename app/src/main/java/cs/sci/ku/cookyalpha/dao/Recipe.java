@@ -21,7 +21,7 @@ public class Recipe implements Parcelable{
     @PropertyName("description")    public String description;
     @PropertyName("like")           public Map<String, Like> like;
     @PropertyName("name")           public String name;
-    @PropertyName("owner")          public String ownerId;
+    @PropertyName("ownerId")          public String ownerId;
     @PropertyName("time")           public String createdTime;
     @PropertyName("ingredient")     public Map<String, Ingredient> ingredients;
     @PropertyName("procedure")      public Map<String, RecipeProcedure> procedures;

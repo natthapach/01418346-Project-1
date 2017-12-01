@@ -3,6 +3,7 @@ package cs.sci.ku.cookyalpha.fragments.recipe.display;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +11,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import cs.sci.ku.cookyalpha.R;
+import cs.sci.ku.cookyalpha.callbacks.OnResult;
 import cs.sci.ku.cookyalpha.dao.Recipe;
+import cs.sci.ku.cookyalpha.dao.User;
 import cs.sci.ku.cookyalpha.managers.FirebaseRecipeManager;
+import cs.sci.ku.cookyalpha.managers.ProfileManager;
 
 /**
  * Created by MegapiesPT on 4/11/2560.
@@ -63,6 +68,19 @@ public class PreviewRecipeFragment extends Fragment {
         Glide.with(getContext())
                 .load(recipe.preview.imgUrl)
                 .into(previewImageView);
+        ProfileManager.getInstance().loadUser(recipe.ownerId, new OnResult<User>() {
+            @Override
+            public void onResult(User obj) {
+                Log.d("preview recipe", ownerImageView + " " + ownerNameTextView);
+                if (ownerImageView != null)
+                    Glide.with(getContext())
+                        .load(obj.getImgProfile())
+                        .apply(new RequestOptions().circleCrop())
+                        .into(ownerImageView);
+                if (ownerNameTextView != null)
+                    ownerNameTextView.setText(obj.getName());
+            }
+        });
     }
 
     private void initInstance(View rootView) {
@@ -72,5 +90,6 @@ public class PreviewRecipeFragment extends Fragment {
         previewImageView = rootView.findViewById(R.id.iv_recipe_img);
         recipeNameTextView = rootView.findViewById(R.id.tv_recipe_name);
         descriptionTextView =  rootView.findViewById(R.id.tv_recipe_desc);
+        Log.d("init preview recipe", ownerImageView + " " + ownerNameTextView);
     }
 }

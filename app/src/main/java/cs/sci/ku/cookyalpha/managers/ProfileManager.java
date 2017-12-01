@@ -69,6 +69,7 @@ public class ProfileManager {
         getFacebookProfile(new OnResult<User>() {
             @Override
             public void onResult(User obj) {
+                obj.setId(uid);
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user").child(uid);
                 ref.setValue(obj)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {

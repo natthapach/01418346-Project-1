@@ -27,6 +27,7 @@ import java.util.Set;
 
 import cs.sci.ku.cookyalpha.callbacks.UploadRecipeCallback;
 import cs.sci.ku.cookyalpha.dao.Recipe;
+import cs.sci.ku.cookyalpha.utils.UserProfileCarrier;
 
 /**
  * Created by MegapiesPT on 31/10/2560.
@@ -106,12 +107,14 @@ public class FirebaseRecipeManager{
         categories.add("Dinner");
         return categories;
     }
-    public void uploadRecipe(final Recipe recipe, UploadRecipeCallback callback){
-        Log.d("uploadRecipe", "in uploadRecipe");
+    public void uploadRecipe(final Recipe recipe, final UploadRecipeCallback callback){
+        recipe.ownerId = UserProfileCarrier.getInstance().getUser().getId();
+        Log.d("uploadRecipe", "in uploadRecipe " + recipe);
         RecipeUploader uploader = new RecipeUploader(recipe, new UploadRecipeCallback() {
             @Override
             public void onComplete(String recipeId) {
                 Log.d("upload complete", "recipe id " + recipeId);
+                callback.onComplete(recipeId);
             }
 
             @Override

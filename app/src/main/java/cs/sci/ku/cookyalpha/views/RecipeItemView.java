@@ -13,9 +13,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import cs.sci.ku.cookyalpha.R;
+import cs.sci.ku.cookyalpha.callbacks.OnResult;
 import cs.sci.ku.cookyalpha.dao.Recipe;
+import cs.sci.ku.cookyalpha.dao.User;
+import cs.sci.ku.cookyalpha.managers.ProfileManager;
 import cs.sci.ku.cookyalpha.utils.Contextor;
 
 /**
@@ -79,6 +83,18 @@ public class RecipeItemView extends FrameLayout {
         Glide.with(getContext())
                 .load(recipe.preview.imgUrl)
                 .into(recipeImageView);
+        ProfileManager.getInstance().loadUser(recipe.ownerId, new OnResult<User>() {
+            @Override
+            public void onResult(User obj) {
+                if (ownerImageView != null)
+                    Glide.with(getContext())
+                        .load(obj.getImgProfile())
+                        .apply(new RequestOptions().circleCrop())
+                        .into(ownerImageView);
+                if (ownerNameTextView != null)
+                    ownerNameTextView.setText(obj.getName());
+            }
+        });
     }
     public Recipe getRecipe(){
         return recipe;

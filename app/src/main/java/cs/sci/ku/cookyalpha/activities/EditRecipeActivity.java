@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import cs.sci.ku.cookyalpha.R;
 import cs.sci.ku.cookyalpha.callbacks.UploadRecipeCallback;
@@ -63,7 +64,7 @@ public class EditRecipeActivity extends AppCompatActivity {
                 FirebaseRecipeManager.getInstance().uploadRecipe(RecipeEditorCarrier.getInstance().getRecipe(), new UploadRecipeCallback() {
                     @Override
                     public void onComplete(String recipeId) {
-
+                        Toast.makeText(EditRecipeActivity.this, "Upload Recipe Complete", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -71,6 +72,7 @@ public class EditRecipeActivity extends AppCompatActivity {
 
                     }
                 });
+                finish();
             }
         });
 

@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         createMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                drawetLayout.closeDrawer(Gravity.START);
                 Intent intent = new Intent(MainActivity.this, EditRecipeActivity.class);
                 startActivity(intent);
             }

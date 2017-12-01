@@ -49,10 +49,16 @@ public class LoginActivity extends AppCompatActivity {
         Log.d("Current Profile", Profile.getCurrentProfile() + "");
 
         auth = FirebaseAuth.getInstance();
+
+        initInstance();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         if (AccessToken.getCurrentAccessToken() != null){
             handleFacebookAccessToken(AccessToken.getCurrentAccessToken());
         }
-        initInstance();
     }
 
     private void initInstance() {
