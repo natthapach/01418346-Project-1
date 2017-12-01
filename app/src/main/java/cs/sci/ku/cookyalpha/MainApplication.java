@@ -2,6 +2,9 @@ package cs.sci.ku.cookyalpha;
 
 import android.app.Application;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+
 import cs.sci.ku.cookyalpha.managers.FirebaseRecipeManager;
 import cs.sci.ku.cookyalpha.managers.GlobalRecipeCollector;
 import cs.sci.ku.cookyalpha.utils.Contextor;
@@ -18,6 +21,7 @@ public class MainApplication extends Application {
         Contextor.getInstance().init(getApplicationContext());
         FirebaseRecipeManager.getInstance();
         GlobalRecipeCollector.getInstance();
+        AppEventsLogger.activateApp(this);
     }
 
     @Override

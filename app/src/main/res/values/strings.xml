@@ -23,4 +23,7 @@
     <string name="procedure_description_hint">fill water to bottle</string>
     <string name="menu_create">Create</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="facebook_app_id">360089194461380</string>
+    <string name="fb_login_protocol_scheme">fb360089194461380</string>
+
 </resources>

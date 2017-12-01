@@ -12,10 +12,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import cs.sci.ku.cookyalpha.R;
+import cs.sci.ku.cookyalpha.callbacks.OnResult;
+import cs.sci.ku.cookyalpha.dao.User;
 import cs.sci.ku.cookyalpha.fragments.GlobalRecipeListFragment;
 import cs.sci.ku.cookyalpha.managers.FirebaseRecipeManager;
+import cs.sci.ku.cookyalpha.managers.ProfileManager;
 import cs.sci.ku.cookyalpha.managers.RecipeManager;
+import cs.sci.ku.cookyalpha.utils.UserProfileCarrier;
 
 public class MainActivity extends AppCompatActivity {
 

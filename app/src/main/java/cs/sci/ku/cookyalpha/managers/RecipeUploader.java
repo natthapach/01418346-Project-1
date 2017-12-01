@@ -21,6 +21,7 @@ import cs.sci.ku.cookyalpha.callbacks.UploadImageCallback;
 import cs.sci.ku.cookyalpha.callbacks.UploadRecipeCallback;
 import cs.sci.ku.cookyalpha.dao.Recipe;
 import cs.sci.ku.cookyalpha.dao.RecipeProcedure;
+import cs.sci.ku.cookyalpha.utils.UserProfileCarrier;
 
 /**
  * Created by MegapiesPT on 30/11/2560.
@@ -47,6 +48,7 @@ public class RecipeUploader {
         DatabaseReference rref = FirebaseDatabase.getInstance().getReference("recipe").push();
         String id = rref.getKey();
         recipe.id = id;
+        recipe.ownerId = UserProfileCarrier.getInstance().getUser().getId();
 
         if (recipe.preview.uri != null){
             UploadImageTask task = new UploadImageTask(recipe.preview.uri, recipe.id+"-preview.jpg", recipe.preview);
