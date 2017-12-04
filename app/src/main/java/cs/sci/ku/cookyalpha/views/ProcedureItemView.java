@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import cs.sci.ku.cookyalpha.R;
 import cs.sci.ku.cookyalpha.dao.RecipeProcedure;
@@ -68,10 +69,12 @@ public class ProcedureItemView extends FrameLayout {
             Glide.with(getContext())
                 .asBitmap()
                 .load(procedure.datas)
+                .apply(new RequestOptions().centerCrop())
                 .into(imageImageView);
         else if (procedure.imgUrl != null)
             Glide.with(getContext())
                     .load(procedure.imgUrl)
+                    .apply(new RequestOptions().centerCrop())
                     .into(imageImageView);
     }
     public void enableTopMargin(){

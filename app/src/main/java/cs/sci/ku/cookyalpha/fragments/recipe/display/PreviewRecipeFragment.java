@@ -67,6 +67,7 @@ public class PreviewRecipeFragment extends Fragment {
         recipeNameTextView.setText(recipe.name);
         Glide.with(getContext())
                 .load(recipe.preview.imgUrl)
+                .apply(new RequestOptions().centerCrop())
                 .into(previewImageView);
         ProfileManager.getInstance().loadUser(recipe.ownerId, new OnResult<User>() {
             @Override

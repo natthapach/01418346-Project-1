@@ -74,4 +74,12 @@ public class IngredientItemView extends FrameLayout {
         layoutParams.setMargins(0, Contextor.getInstance().getContext().getResources().getDimensionPixelSize(R.dimen.spacing), 0, 0);
         rootLayout.setLayoutParams(layoutParams);
     }
+
+    public void disableTopMargin(){
+        @SuppressLint("WrongViewCast") LinearLayout rootLayout = findViewById(R.id.root);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
+
+        layoutParams.setMargins(0, 0, 0, 0);
+        rootLayout.setLayoutParams(layoutParams);
+    }
 }

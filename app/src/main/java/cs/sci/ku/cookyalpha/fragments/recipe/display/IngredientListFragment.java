@@ -89,6 +89,8 @@ public class IngredientListFragment extends Fragment {
                 iview.setIngredient(ingredients.get(i));
                 if (i == 0)
                     iview.enableTopMargin();
+                else
+                    iview.disableTopMargin();
                 return iview;
             }
         });
