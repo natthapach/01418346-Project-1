@@ -7,6 +7,7 @@ import android.util.Log;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -82,6 +83,12 @@ public class UploadImageTask {
                 Log.d("upload complete", uri + "");
                 settable.setImageUrl(uri + "");
                 callback.onComplete();
+            }
+        })
+        .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                Log.d("upload", taskSnapshot.getBytesTransferred() +"/"+ taskSnapshot.getTotalByteCount());
             }
         });
     }

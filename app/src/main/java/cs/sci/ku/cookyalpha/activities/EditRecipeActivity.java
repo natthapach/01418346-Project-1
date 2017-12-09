@@ -1,5 +1,7 @@
 package cs.sci.ku.cookyalpha.activities;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,7 +20,9 @@ import cs.sci.ku.cookyalpha.fragments.recipe.editor.EditRecipeIngredientsFragmen
 import cs.sci.ku.cookyalpha.fragments.recipe.editor.EditRecipePreviewFragment;
 import cs.sci.ku.cookyalpha.fragments.recipe.editor.EditRecipeProceduresFragment;
 import cs.sci.ku.cookyalpha.managers.FirebaseRecipeManager;
+import cs.sci.ku.cookyalpha.utils.Contextor;
 import cs.sci.ku.cookyalpha.utils.RecipeEditorCarrier;
+import dmax.dialog.SpotsDialog;
 
 /**
  * Created by MegapiesPT on 14/11/2560.
@@ -31,6 +35,8 @@ public class EditRecipeActivity extends AppCompatActivity {
     private EditRecipeIngredientsFragment editIngredientsFragment;
     private EditRecipeProceduresFragment editRecipeProceduresFragment;
     private Button postButton;
+    private ProgressDialog progressDialog;
+    private AlertDialog spotsDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +63,20 @@ public class EditRecipeActivity extends AppCompatActivity {
 //                Intent intent = new Intent(EditRecipeActivity.this, RecipeActivity.class);
 //                intent.putExtra("recipe", RecipeEditorCarrier.getInstance().getRecipe());
 //                startActivity(intent);
+
+//                progressDialog = new ProgressDialog(EditRecipeActivity.this);
+//                progressDialog.setMessage("Uploading..."); // Setting Message
+//                progressDialog.setTitle("ProgressDialog"); // Setting Title
+//                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
+//                progressDialog.show(); // Display Progress Dialog
+//
+//                progressDialog.setCancelable(false);
+
+                spotsDialog = new SpotsDialog(EditRecipeActivity.this, R.style.UploadRecipeDialog);
+
+//                spotsDialog.setMessage("uploading");
+                spotsDialog.show();
+
                 editRecipeProceduresFragment.onConfirm();
                 editIngredientsFragment.onConfirm();
                 editPreviewFragment.onConfirm();
@@ -65,6 +85,9 @@ public class EditRecipeActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(String recipeId) {
                         Toast.makeText(EditRecipeActivity.this, "Upload Recipe Complete", Toast.LENGTH_SHORT).show();
+//                        progressDialog.dismiss();
+                        spotsDialog.dismiss();
+                        finish();
                     }
 
                     @Override
@@ -72,7 +95,7 @@ public class EditRecipeActivity extends AppCompatActivity {
 
                     }
                 });
-                finish();
+//                finish();
             }
         });
 
