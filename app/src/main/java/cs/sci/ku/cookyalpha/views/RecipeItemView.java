@@ -82,7 +82,7 @@ public class RecipeItemView extends FrameLayout {
         likesTextView.setText(like + " likes");
         Glide.with(getContext())
                 .load(recipe.preview.imgUrl)
-                .apply(new RequestOptions().centerCrop())
+                .apply(new RequestOptions().placeholder(R.drawable.placholder_w))
                 .into(recipeImageView);
         ProfileManager.getInstance().loadUser(recipe.ownerId, new OnResult<User>() {
             @Override

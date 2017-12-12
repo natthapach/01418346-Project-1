@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.io.ByteArrayOutputStream;
 
@@ -86,10 +87,12 @@ public class ProcedurePropertyView extends FrameLayout {
         if (procedure.imgUrl != null)
             Glide.with(getContext())
                 .load(procedure.imgUrl)
+                .apply(new RequestOptions().placeholder(R.drawable.placholder_w))
                 .into(imageImageView);
         else if (procedure.datas != null)
             Glide.with(getContext())
                 .load(procedure.datas)
+                .apply(new RequestOptions().placeholder(R.drawable.placholder_w))
                 .into(imageImageView);
         descriptionEditText.setText(procedure.description);
     }
