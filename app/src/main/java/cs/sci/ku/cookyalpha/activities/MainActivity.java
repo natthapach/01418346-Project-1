@@ -103,6 +103,30 @@ public class MainActivity extends AppCompatActivity {
                 .into(profileImageView);
         if (emailTextView != null)
             emailTextView.setText(user.getEmail());
+        profileImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openUserProfile();
+            }
+        });
+        userNameTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openUserProfile();
+            }
+        });
+        emailTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openUserProfile();
+            }
+        });
+    }
+
+    private void openUserProfile(){
+        drawetLayout.closeDrawer(Gravity.START);
+        Intent intent = new Intent(this, UserProfileActivity.class);
+        startActivity(intent);
     }
 
     @Override

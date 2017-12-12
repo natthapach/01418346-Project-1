@@ -125,6 +125,14 @@ public class FirebaseRecipeManager{
         uploader.upload();
     }
 
+    public List<Recipe> getUserRecipes(@NonNull String userId){
+        List<Recipe> recipes = new ArrayList<>();
+        for (Recipe recipe : this.recipes)
+            if (userId.equals(recipe.getOwnerId()))
+                recipes.add(recipe);
+        return recipes;
+    }
+
     public List<Recipe> addObserver(RecipeObserver observer){
         observers.add(observer);
         return recipes;

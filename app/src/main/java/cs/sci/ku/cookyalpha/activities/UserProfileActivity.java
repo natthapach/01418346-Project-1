@@ -1,0 +1,73 @@
+package cs.sci.ku.cookyalpha.activities;
+
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+
+import cs.sci.ku.cookyalpha.R;
+import cs.sci.ku.cookyalpha.dao.User;
+import cs.sci.ku.cookyalpha.fragments.RecipeListFragment;
+import cs.sci.ku.cookyalpha.managers.FirebaseRecipeManager;
+import cs.sci.ku.cookyalpha.utils.RecipesCarrier;
+import cs.sci.ku.cookyalpha.utils.UserProfileCarrier;
+
+public class UserProfileActivity extends AppCompatActivity {
+
+    private ImageView profileImageView;
+    private TextView nameTextView;
+    private Button followingButton;
+    private Button followerButton;
+    private FrameLayout containerFrame;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+//        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        setContentView(R.layout.activity_user_profile);
+
+        initInstance();
+        initData();
+    }
+
+    private void initData() {
+        User user = UserProfileCarrier.getInstance().getUser();
+        Glide.with(this)
+                .load(user.getImgProfile())
+                .apply(new RequestOptions().circleCrop())
+                .into(profileImageView);
+        nameTextView.setText(user.getName());
+        RecipesCarrier.getInstance().setRecipes(FirebaseRecipeManager.getInstance().getUserRecipes(user.getId()));
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.container_frame, RecipeListFragment.newInstance())
+                .commit();
+    }
+
+    private void initInstance() {
+        profileImageView = findViewById(R.id.iv_profile);
+        nameTextView = findViewById(R.id.tv_user_name);
+        followingButton = findViewById(R.id.btn_following);
+        followerButton = findViewById(R.id.btn_follower);
+        containerFrame = findViewById(R.id.container_frame);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+}
