@@ -41,9 +41,10 @@
             </LinearLayout>
         </LinearLayout>
         <ImageView
+            android:scaleType="centerCrop"
             android:id="@+id/iv_recipe_img"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="200dp" />
         <LinearLayout
             android:padding="@dimen/inner_padding"
             android:orientation="vertical"

@@ -51,17 +51,17 @@ public class RecipeUploader {
         recipe.ownerId = UserProfileCarrier.getInstance().getUser().getId();
 
         if (recipe.preview.uri != null){
-            UploadImageTask task = new UploadImageTask(recipe.preview.uri, recipe.id+"-preview.jpg", recipe.preview);
+            UploadImageTask task = new UploadImageTask(recipe.preview.uri, recipe+"/"+recipe.id+"-preview.jpg", recipe.preview);
             taskQueue.add(task);
         }else {
-            UploadImageTask task = new UploadImageTask(recipe.preview.datas, recipe.id+"-preview.jpg", recipe.preview);
+            UploadImageTask task = new UploadImageTask(recipe.preview.datas, recipe+"/"+recipe.id+"-preview.jpg", recipe.preview);
             taskQueue.add(task);
         }
 
         for (Map.Entry<String, RecipeProcedure> entry: recipe.procedures.entrySet()){
             RecipeProcedure procedure = entry.getValue();
             if (procedure.datas != null){
-                UploadImageTask task = new UploadImageTask(procedure.datas, recipe.id+"-procedure-"+entry.getKey()+".jpg", procedure);
+                UploadImageTask task = new UploadImageTask(procedure.datas, recipe+"/"+recipe.id+"-procedure-"+entry.getKey()+".jpg", procedure);
                 taskQueue.add(task);
             }else{
                 // TODO upload procedure with uri

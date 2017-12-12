@@ -1,6 +1,7 @@
 package cs.sci.ku.cookyalpha.views;
 
 import android.content.Context;
+import android.gesture.GestureLibraries;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+
+import javax.microedition.khronos.opengles.GL;
 
 import cs.sci.ku.cookyalpha.R;
 import cs.sci.ku.cookyalpha.callbacks.OnResult;
@@ -59,6 +62,7 @@ public class RecipeItemView extends FrameLayout {
         initInflate();
         initInstance();
     }
+
 
     private void initInflate(){
         inflate(getContext(), R.layout.view_recipe_item, this);
@@ -107,5 +111,20 @@ public class RecipeItemView extends FrameLayout {
 
         layoutParams.setMargins(0, Contextor.getInstance().getContext().getResources().getDimensionPixelSize(R.dimen.spacing), 0, 0);
         rootLayout.setLayoutParams(layoutParams);
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+//        Glide.with(getContext())
+//                .resumeRequests();
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        Log.d("onDetached", recipe.getName());
+//        Glide.with(getContext())
+//                .pauseRequests();
     }
 }
