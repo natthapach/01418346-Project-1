@@ -7,7 +7,7 @@
     tools:context="cs.sci.ku.cookyalpha.activities.LoginActivity">
     <!--<ImageView-->
         <!--android:scaleType="centerCrop"-->
-        <!--android:src="@drawable/login_bg"-->
+        <!--android:src="@drawalogin_bg_bg"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent" />-->
 
