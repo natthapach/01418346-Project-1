@@ -69,13 +69,4 @@
                 android:ellipsize="end"/>
         </LinearLayout>
     </LinearLayout>
-    <!--<LinearLayout-->
-        <!--android:background="#FF0"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent">-->
-        <!--<TextView-->
-            <!--android:text="asssssssssssssss"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent" />-->
-    <!--</LinearLayout>-->
 </RelativeLayout>
