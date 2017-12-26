@@ -3,6 +3,8 @@
     <string name="open_drawer">Open menu</string>
     <string name="close_drawer">Close menu</string>
 
+    <string name="likes">Likes</string>
+
     <string name="recipe_name_label">Name</string>
     <string name="recipe_name_hint">Recipe name</string>
     <string name="recipe_description_label">Description</string>

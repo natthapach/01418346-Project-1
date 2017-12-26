@@ -5,7 +5,11 @@
     android:id="@+id/root"
     android:background="@drawable/shape_rounded">
 
-    <ImageView
+    <!--<ImageView-->
+        <!--android:id="@+id/iv_procedure"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content" />   -->
+    <cs.sci.ku.cookyalpha.views.RatioImageView
         android:id="@+id/iv_procedure"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

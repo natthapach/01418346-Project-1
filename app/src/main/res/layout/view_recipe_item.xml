@@ -40,11 +40,15 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
         </LinearLayout>
-        <ImageView
-            android:scaleType="centerCrop"
-            android:id="@+id/iv_recipe_img"
+        <!--<ImageView-->
+            <!--android:scaleType="centerCrop"-->
+            <!--android:id="@+id/iv_recipe_img"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="200dp" />-->
+        <cs.sci.ku.cookyalpha.views.RatioImageView
             android:layout_width="match_parent"
-            android:layout_height="200dp" />
+            android:layout_height="wrap_content"
+            android:id="@+id/iv_recipe_img"/>
         <LinearLayout
             android:padding="@dimen/inner_padding"
             android:orientation="vertical"
@@ -61,7 +65,7 @@
 
             <TextView
                 style="@style/NormalText.Dark"
-                android:text="Likes"
+                android:text="@string/likes"
                 android:id="@+id/tv_likes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

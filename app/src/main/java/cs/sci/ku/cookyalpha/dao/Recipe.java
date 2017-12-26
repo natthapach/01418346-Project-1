@@ -53,6 +53,7 @@ public class Recipe implements Parcelable{
         preview = in.readParcelable(RecipePreview.class.getClassLoader());
         in.readMap(this.procedures, RecipeProcedure.class.getClassLoader());
         in.readMap(this.ingredients, Ingredient.class.getClassLoader());
+        in.readMap(this.like, Like.class.getClassLoader());
     }
 
     public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
@@ -88,6 +89,7 @@ public class Recipe implements Parcelable{
         // TODO write parcel map (Like, Ingredient, procedure)
         parcel.writeMap(procedures);
         parcel.writeMap(ingredients);
+        parcel.writeMap(like);
     }
 
     public void setIngredientsList(List<Ingredient> ingredientsList){
@@ -136,5 +138,11 @@ public class Recipe implements Parcelable{
 
     public RecipePreview getPreview() {
         return preview;
+    }
+
+    public int countLike(){
+        if (like == null)
+            return 0;
+        return like.size();
     }
 }

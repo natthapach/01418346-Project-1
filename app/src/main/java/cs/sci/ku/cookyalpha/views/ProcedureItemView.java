@@ -69,12 +69,14 @@ public class ProcedureItemView extends FrameLayout {
             Glide.with(getContext())
                 .asBitmap()
                 .load(procedure.datas)
-                .apply(new RequestOptions().centerCrop().placeholder(R.drawable.placholder_w))
+                .apply(new RequestOptions().fitCenter())
+//                .apply(new RequestOptions().placeholder(R.drawable.placholder_w).centerCrop())
                 .into(imageImageView);
         else if (procedure.imgUrl != null)
             Glide.with(getContext())
                     .load(procedure.imgUrl)
-                    .apply(new RequestOptions().centerCrop().placeholder(R.drawable.placholder_w))
+                    .apply(new RequestOptions().centerCrop())
+                    .apply(new RequestOptions().placeholder(R.drawable.placholder_w).centerCrop())
                     .into(imageImageView);
     }
     public void enableTopMargin(){

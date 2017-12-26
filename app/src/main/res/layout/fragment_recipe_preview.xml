@@ -13,6 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
+                android:layout_marginRight="@dimen/inner_padding"
                 android:id="@+id/iv_owner_img"
                 android:layout_width="@dimen/recipe_owner_icon"
                 android:layout_height="@dimen/recipe_owner_icon" />
