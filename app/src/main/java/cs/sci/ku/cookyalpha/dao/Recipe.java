@@ -140,6 +140,12 @@ public class Recipe implements Parcelable{
         return preview;
     }
 
+    public boolean isLike(String userId){
+        if (like == null)
+            return false;
+        return like.keySet().contains(userId);
+    }
+
     public int countLike(){
         if (like == null)
             return 0;

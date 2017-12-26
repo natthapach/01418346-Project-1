@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.Set;
 
 import cs.sci.ku.cookyalpha.callbacks.UploadRecipeCallback;
+import cs.sci.ku.cookyalpha.dao.Like;
 import cs.sci.ku.cookyalpha.dao.Recipe;
 import cs.sci.ku.cookyalpha.utils.UserProfileCarrier;
 
@@ -60,6 +61,10 @@ public class FirebaseRecipeManager{
         for (RecipeObserver observer : observers)
             observer.onRecipeAdd(recipe);
     }
+    private void notifyObserverOnChange(Recipe recipe){
+        for (RecipeObserver observer : observers)
+            observer.onRecipeChange(recipe);
+    }
     private void initCallBack() {
         ref.addChildEventListener(new ChildEventListener() {
             @Override
@@ -76,7 +81,14 @@ public class FirebaseRecipeManager{
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
+                Recipe recipe = dataSnapshot.getValue(Recipe.class);
+                Log.d("onRecipeChanged", recipe + "");
+                if (recipe != null){
+                    for (int i=0; i<recipes.size(); i++)
+                        if (recipes.get(i).id.equals(recipe.id))
+                            recipes.set(i, recipe);
+                    recipeMap.put(recipe.id, recipe);
+                }
             }
 
             @Override
@@ -131,6 +143,14 @@ public class FirebaseRecipeManager{
             if (userId.equals(recipe.getOwnerId()))
                 recipes.add(recipe);
         return recipes;
+    }
+
+    public void likeRecipe(Recipe recipe){
+        Like like = new Like(UserProfileCarrier.getInstance().getUser().getId());
+        ref.child(recipe.id).child("like").child(like.getUserId()).setValue(like);
+    }
+    public void unlikeRecipe(Recipe recipe){
+        ref.child(recipe.id).child("like").child(UserProfileCarrier.getInstance().getUser().getId()).setValue(null);
     }
 
     public List<Recipe> addObserver(RecipeObserver observer){

@@ -49,6 +49,7 @@ public class Like implements Parcelable{
         parcel.writeString(userId);
     }
 
+    @PropertyName("user-id")
     public String getUserId() {
         return userId;
     }

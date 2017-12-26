@@ -6,15 +6,24 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import cs.sci.ku.cookyalpha.R;
+import cs.sci.ku.cookyalpha.dao.Recipe;
 import cs.sci.ku.cookyalpha.fragments.recipe.display.IngredientListFragment;
 import cs.sci.ku.cookyalpha.fragments.recipe.display.PreviewRecipeFragment;
 import cs.sci.ku.cookyalpha.fragments.recipe.display.ProcedureListFragment;
+import cs.sci.ku.cookyalpha.managers.FirebaseRecipeManager;
+import cs.sci.ku.cookyalpha.utils.UserProfileCarrier;
 
 public class RecipeActivity extends AppCompatActivity {
 
     private ViewPager viewPager;
+    private String recipeId;
+    private Recipe recipe;
+    private CheckBox likeCheckBox;
 
 
     @Override
@@ -23,12 +32,16 @@ public class RecipeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recipe);
 
         Intent intent = getIntent();
-        final String recipeId = intent.getStringExtra("recipeId");
+        recipeId = intent.getStringExtra("recipeId");
 //        if (savedInstanceState == null && recipeId != null){
 //            getSupportFragmentManager().beginTransaction()
 //                                        .add(R.id.container_frame, ProcedureListFragment.newInstance(recipeId))
 //                                        .commit();
 //        }
+        initInstance();
+    }
+
+    private void initInstance() {
         viewPager = findViewById(R.id.viewPager);
         viewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -62,6 +75,23 @@ public class RecipeActivity extends AppCompatActivity {
                     default:
                         return null;
                 }
+            }
+        });
+        likeCheckBox = findViewById(R.id.cb_like);
+        recipe = FirebaseRecipeManager.getInstance().getRecipe(recipeId);
+        Log.d("isLike", recipe.isLike(UserProfileCarrier.getInstance().getUser().getId()) + "");
+        likeCheckBox.setChecked(recipe.isLike(UserProfileCarrier.getInstance().getUser().getId()));
+//        likeCheckBox.setChecked(true);
+        Log.d("isChecked", likeCheckBox.isChecked() + "");
+        likeCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                Log.d("onCheckedChanged", b + " ");
+                Log.d("isChecked", likeCheckBox.isChecked() + "");
+                if (b)
+                    FirebaseRecipeManager.getInstance().likeRecipe(recipe);
+                else
+                    FirebaseRecipeManager.getInstance().unlikeRecipe(recipe);
             }
         });
     }
