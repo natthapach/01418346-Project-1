@@ -88,6 +88,7 @@ public class FirebaseRecipeManager{
                         if (recipes.get(i).id.equals(recipe.id))
                             recipes.set(i, recipe);
                     recipeMap.put(recipe.id, recipe);
+                    notifyObserverOnChange(recipe);
                 }
             }
 
