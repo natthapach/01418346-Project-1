@@ -34,8 +34,10 @@ public class UserProfileCarrier {
         Log.d("set user" , user + "");
         Log.d("set user" , listener + "");
         this.user = user;
-        if (listener != null)
+        if (listener != null) {
             listener.onProfileChange();
+            listener = null;
+        }
     }
 
     public void setListener(ProfileCarrierListener listener) {

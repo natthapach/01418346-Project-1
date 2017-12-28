@@ -86,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
             UserProfileCarrier.getInstance().setListener(new ProfileCarrierListener() {
                 @Override
                 public void onProfileChange() {
+                    // **FIXED**
+                    // Provide exception "you cannot start a load for a destroyed activity"
                     initUserProfileDrawer();
                 }
             });
@@ -93,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initUserProfileDrawer(){
         Log.d("MainActivity", "initUserProfile " + userNameTextView + " " + profileImageView);
+        Log.d("MainActivity", "initUserProfile " + this);
         User user = UserProfileCarrier.getInstance().getUser();
         if (userNameTextView != null)
             userNameTextView.setText(user.getName());
@@ -146,5 +149,17 @@ public class MainActivity extends AppCompatActivity {
         if (actionBarDrawerToggle.onOptionsItemSelected(item))
             return true;
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("OnPause", "MainActivity");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("onDestroy", "MainActivity");
     }
 }
