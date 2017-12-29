@@ -14,6 +14,14 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+    <style name="ProfileTheme" parent="AppTheme">
+        <item name="colorPrimary">#000</item>
+        <item name="checkboxStyle">@style/FollowCheckBoxStyle</item>
+        <item name="actionButtonStyle">@style/FollowCheckBoxStyle</item>
+    </style>
+    <style name="FollowCheckBoxStyle" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/like_icon</item>
+    </style>
 
     <style name="UploadRecipeDialog" parent="android:Theme.DeviceDefault.Dialog">
         <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>

@@ -3,6 +3,8 @@ package cs.sci.ku.cookyalpha.activities;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.Window;
 import android.widget.Button;
@@ -69,5 +71,14 @@ public class UserProfileActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_other_user, menu);
+//        MenuItem followItem = menu.findItem(R.id.menu_follow);
+//        followItem.setIcon(getResources().getDrawable(R.drawable.like_icon));
+        return true;
     }
 }

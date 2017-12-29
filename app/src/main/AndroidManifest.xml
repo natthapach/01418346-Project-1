@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.MainActivity"
-            android:theme="@style/MainTheme"></activity>
+            android:theme="@style/MainTheme"/>
         <activity android:name=".activities.RecipeActivity" />
         <activity android:name=".activities.EditRecipeActivity" />
 
@@ -46,7 +46,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.UserProfileActivity"></activity>
+        <activity
+            android:name=".activities.UserProfileActivity"
+            />
     </application>
 
 </manifest>
