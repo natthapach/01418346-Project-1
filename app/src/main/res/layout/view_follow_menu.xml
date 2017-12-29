@@ -5,7 +5,8 @@
     android:layout_height="wrap_content">
 
     <CheckBox
-        android:layout_marginRight="@dimen/spacing"
+        android:id="@+id/cb_follow"
+        android:layout_marginEnd="@dimen/spacing"
         android:layout_width="72dp"
         android:layout_height="24dp"
         android:button="@null"

@@ -5,5 +5,5 @@
         android:id="@+id/menu_follow"
         app:showAsAction="always"
         app:actionLayout="@layout/view_follow_menu"
-        android:title="followx" />
+        android:title="follow" />
 </menu>

@@ -3,11 +3,15 @@ package cs.sci.ku.cookyalpha.activities;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -66,6 +70,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Log.d("onOptionItemSelected", R.id.menu_follow + "/" + item.getItemId());
         if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
@@ -79,6 +84,15 @@ public class UserProfileActivity extends AppCompatActivity {
         inflater.inflate(R.menu.menu_other_user, menu);
 //        MenuItem followItem = menu.findItem(R.id.menu_follow);
 //        followItem.setIcon(getResources().getDrawable(R.drawable.like_icon));
+        MenuItem followMenu = menu.findItem(R.id.menu_follow);
+        View followLayout = followMenu.getActionView();
+        CheckBox followCheckBox = followLayout.findViewById(R.id.cb_follow);
+        followCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                Log.d("Follow check change", b+"");
+            }
+        });
         return true;
     }
 }
