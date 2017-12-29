@@ -1,5 +1,6 @@
 package cs.sci.ku.cookyalpha.fragments.recipe.display;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import cs.sci.ku.cookyalpha.R;
+import cs.sci.ku.cookyalpha.activities.UserProfileActivity;
 import cs.sci.ku.cookyalpha.callbacks.OnResult;
 import cs.sci.ku.cookyalpha.dao.Recipe;
 import cs.sci.ku.cookyalpha.dao.User;
@@ -82,6 +84,24 @@ public class PreviewRecipeFragment extends Fragment {
                     ownerNameTextView.setText(obj.getName());
             }
         });
+        ownerNameTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openOwnerProfile();
+            }
+        });
+        ownerImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openOwnerProfile();
+            }
+        });
+    }
+
+    private void openOwnerProfile(){
+        Intent intent = new Intent(getContext(), UserProfileActivity.class);
+        intent.putExtra("uid", recipe.ownerId);
+        startActivity(intent);
     }
 
     private void initInstance(View rootView) {

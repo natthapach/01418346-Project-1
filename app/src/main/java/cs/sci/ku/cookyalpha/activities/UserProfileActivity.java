@@ -1,5 +1,6 @@
 package cs.sci.ku.cookyalpha.activities;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,9 +21,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import cs.sci.ku.cookyalpha.R;
+import cs.sci.ku.cookyalpha.callbacks.OnResult;
 import cs.sci.ku.cookyalpha.dao.User;
 import cs.sci.ku.cookyalpha.fragments.RecipeListFragment;
 import cs.sci.ku.cookyalpha.managers.FirebaseRecipeManager;
+import cs.sci.ku.cookyalpha.managers.ProfileManager;
 import cs.sci.ku.cookyalpha.utils.RecipesCarrier;
 import cs.sci.ku.cookyalpha.utils.UserProfileCarrier;
 
@@ -33,6 +36,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private Button followingButton;
     private Button followerButton;
     private FrameLayout containerFrame;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,17 +49,39 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        User user = UserProfileCarrier.getInstance().getUser();
-        Glide.with(this)
-                .load(user.getImgProfile())
-                .apply(new RequestOptions().circleCrop())
-                .into(profileImageView);
-        nameTextView.setText(user.getName());
-        RecipesCarrier.getInstance().setRecipes(FirebaseRecipeManager.getInstance().getUserRecipes(user.getId()));
-        getSupportFragmentManager()
-                .beginTransaction()
-                .add(R.id.container_frame, RecipeListFragment.newInstance())
-                .commit();
+        Intent intent = getIntent();
+        String uid = intent.getStringExtra("uid");
+        if (uid == null){
+
+            User user = UserProfileCarrier.getInstance().getUser();
+            Glide.with(this)
+                    .load(user.getImgProfile())
+                    .apply(new RequestOptions().circleCrop())
+                    .into(profileImageView);
+            nameTextView.setText(user.getName());
+            RecipesCarrier.getInstance().setRecipes(FirebaseRecipeManager.getInstance().getUserRecipes(user.getId()));
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.container_frame, RecipeListFragment.newInstance())
+                    .commit();
+        }else{
+            ProfileManager.getInstance().loadUser(uid, new OnResult<User>() {
+                @Override
+                public void onResult(User user) {
+                    UserProfileActivity.this.user = user;
+                    Glide.with(UserProfileActivity.this)
+                            .load(user.getImgProfile())
+                            .apply(new RequestOptions().circleCrop())
+                            .into(profileImageView);
+                    nameTextView.setText(user.getName());
+                    RecipesCarrier.getInstance().setRecipes(FirebaseRecipeManager.getInstance().getUserRecipes(user.getId()));
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .add(R.id.container_frame, RecipeListFragment.newInstance())
+                            .commit();
+                }
+            });
+        }
     }
 
     private void initInstance() {
@@ -91,6 +117,21 @@ public class UserProfileActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 Log.d("Follow check change", b+"");
+                if (b)
+                    ProfileManager
+                            .getInstance()
+                            .follow(
+                                    UserProfileCarrier.getInstance().getUser().getId(),
+                                    user.getId()
+                            );
+                else
+                    ProfileManager
+                            .getInstance()
+                            .unfollow(
+                                    UserProfileCarrier.getInstance().getUser().getId(),
+                                    user.getId()
+                            );
+
             }
         });
         return true;

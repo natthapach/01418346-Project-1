@@ -24,12 +24,9 @@ import java.util.Map;
 import cs.sci.ku.cookyalpha.callbacks.OnResult;
 import cs.sci.ku.cookyalpha.dao.User;
 
-/**
- * Created by MegapiesPT on 30/11/2560.
- */
-
 public class ProfileManager {
     private static ProfileManager instance;
+    private final DatabaseReference ref;
     private Map<String, User> usersBuffer = new HashMap<>();
 
     public static ProfileManager getInstance(){
@@ -38,10 +35,14 @@ public class ProfileManager {
         return instance;
     }
 
+    public ProfileManager() {
+        ref = FirebaseDatabase.getInstance().getReference("user");
+    }
+
     public void loadUser(final String uid, final OnResult<User> onResult){
         Log.d("loadUser", "uid=" + uid);
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user").child(uid);
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference uref = ref.child(uid);
+        uref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.d("data snapshot", dataSnapshot + "");
@@ -70,8 +71,8 @@ public class ProfileManager {
             @Override
             public void onResult(User obj) {
                 obj.setId(uid);
-                DatabaseReference ref = FirebaseDatabase.getInstance().getReference("user").child(uid);
-                ref.setValue(obj)
+                DatabaseReference uref = ref.child(uid);
+                uref.setValue(obj)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -115,6 +116,20 @@ public class ProfileManager {
                     }
                 }
         ).executeAsync();
+    }
+
+    public void follow(String followerId, String followedId){
+        DatabaseReference followerRef = ref.child(followerId).child("following");
+        followerRef.child(followedId).setValue(followedId);
+        DatabaseReference followedRef = ref.child(followedId).child("follower");
+        followedRef.child(followerId).setValue(followerId);
+    }
+
+    public void unfollow(String followerId, String followedId){
+        DatabaseReference followerRef = ref.child(followerId).child("following");
+        followerRef.child(followedId).setValue(null);
+        DatabaseReference followedRef = ref.child(followedId).child("follower");
+        followedRef.child(followerId).setValue(null);
     }
 
 }
