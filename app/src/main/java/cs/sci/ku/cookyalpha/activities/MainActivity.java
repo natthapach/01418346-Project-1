@@ -25,9 +25,6 @@ import cs.sci.ku.cookyalpha.callbacks.OnResult;
 import cs.sci.ku.cookyalpha.callbacks.ProfileCarrierListener;
 import cs.sci.ku.cookyalpha.dao.User;
 import cs.sci.ku.cookyalpha.fragments.GlobalRecipeListFragment;
-import cs.sci.ku.cookyalpha.managers.FirebaseRecipeManager;
-import cs.sci.ku.cookyalpha.managers.ProfileManager;
-import cs.sci.ku.cookyalpha.managers.RecipeManager;
 import cs.sci.ku.cookyalpha.utils.UserProfileCarrier;
 
 public class MainActivity extends AppCompatActivity {

@@ -19,7 +19,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import cs.sci.ku.cookyalpha.callbacks.OnResult;
 import cs.sci.ku.cookyalpha.dao.User;
@@ -28,6 +30,8 @@ public class ProfileManager {
     private static ProfileManager instance;
     private final DatabaseReference ref;
     private Map<String, User> usersBuffer = new HashMap<>();
+    private Map<String, ProfileListener> listeners = new HashMap<>();
+    private Set<String> listened = new HashSet<>();
 
     public static ProfileManager getInstance(){
         if (instance == null)
@@ -40,6 +44,11 @@ public class ProfileManager {
     }
 
     public void loadUser(final String uid, final OnResult<User> onResult){
+        if (usersBuffer.get(uid) != null){
+            onResult.onResult(usersBuffer.get(uid));
+            Log.d("ProfileManager", "reuse user");
+            return;
+        }
         Log.d("loadUser", "uid=" + uid);
         DatabaseReference uref = ref.child(uid);
         uref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -55,13 +64,38 @@ public class ProfileManager {
                     });
                 }else {
                     User user = dataSnapshot.getValue(User.class);
+                    usersBuffer.put(user.getId(), user);
+                    initUserListener(user.getId());
                     onResult.onResult(user);
+
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.d("data error", databaseError + "");
+            }
+        });
+    }
+
+    private void initUserListener(String id) {
+        if (listened.contains(id))
+            return;
+        Log.d("ProfileManager", "initUserListener " + id + " " + usersBuffer);
+        listened.add(id);
+        ref.child(id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.d("ProfileManager", "dataChange " + dataSnapshot);
+                User user = dataSnapshot.getValue(User.class);
+                Log.d("ProfileManager", "user " + user);
+                if (listeners.get(user.getId()) != null)
+                    listeners.get(user.getId()).onProfileChange(user);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
     }
@@ -106,7 +140,7 @@ public class ProfileManager {
                                 if (data.has("email"))
                                     email = data.getString("email");
 
-                                User user = new User(name, null, profileUrl, email);
+                                User user = new User(name, null, profileUrl, email, null, null);
                                 onResult.onResult(user);
                             }
                         }catch (JSONException e){
@@ -130,6 +164,17 @@ public class ProfileManager {
         followerRef.child(followedId).setValue(null);
         DatabaseReference followedRef = ref.child(followedId).child("follower");
         followedRef.child(followerId).setValue(null);
+    }
+
+    public void regisListener(ProfileListener listener){
+        listeners.put(listener.getIdListener(), listener);
+    }
+    public void removeListener(String id){
+        listeners.remove(id);
+    }
+    public interface ProfileListener{
+        String getIdListener();
+        void onProfileChange(User user);
     }
 
 }

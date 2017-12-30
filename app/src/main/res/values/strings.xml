@@ -28,4 +28,7 @@
     <string name="facebook_app_id">360089194461380</string>
     <string name="fb_login_protocol_scheme">fb360089194461380</string>
 
+    <string name="following">Followings</string>
+    <string name="follower">Followers</string>
+
 </resources>

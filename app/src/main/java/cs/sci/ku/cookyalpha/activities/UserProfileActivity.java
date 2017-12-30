@@ -37,6 +37,18 @@ public class UserProfileActivity extends AppCompatActivity {
     private Button followerButton;
     private FrameLayout containerFrame;
     private User user;
+    private ProfileManager.ProfileListener listener = new ProfileManager.ProfileListener() {
+        @Override
+        public String getIdListener() {
+            return user.getId();
+        }
+
+        @Override
+        public void onProfileChange(User user) {
+            UserProfileActivity.this.user = user;
+            initInfo();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,36 +64,42 @@ public class UserProfileActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String uid = intent.getStringExtra("uid");
         if (uid == null){
-
-            User user = UserProfileCarrier.getInstance().getUser();
-            Glide.with(this)
-                    .load(user.getImgProfile())
-                    .apply(new RequestOptions().circleCrop())
-                    .into(profileImageView);
-            nameTextView.setText(user.getName());
-            RecipesCarrier.getInstance().setRecipes(FirebaseRecipeManager.getInstance().getUserRecipes(user.getId()));
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .add(R.id.container_frame, RecipeListFragment.newInstance())
-                    .commit();
+            this.user = UserProfileCarrier.getInstance().getUser();
+            regisListener();
+            initInfo();
         }else{
             ProfileManager.getInstance().loadUser(uid, new OnResult<User>() {
                 @Override
                 public void onResult(User user) {
                     UserProfileActivity.this.user = user;
-                    Glide.with(UserProfileActivity.this)
-                            .load(user.getImgProfile())
-                            .apply(new RequestOptions().circleCrop())
-                            .into(profileImageView);
-                    nameTextView.setText(user.getName());
-                    RecipesCarrier.getInstance().setRecipes(FirebaseRecipeManager.getInstance().getUserRecipes(user.getId()));
-                    getSupportFragmentManager()
-                            .beginTransaction()
-                            .add(R.id.container_frame, RecipeListFragment.newInstance())
-                            .commit();
+                    regisListener();
+                    initInfo();
                 }
             });
         }
+    }
+
+    private void regisListener(){
+        ProfileManager.getInstance().regisListener(listener);
+    }
+
+    private void initInfo(){
+        Glide.with(this)
+                .load(user.getImgProfile())
+                .apply(new RequestOptions().circleCrop())
+                .into(profileImageView);
+        nameTextView.setText(user.getName());
+        RecipesCarrier.getInstance().setRecipes(FirebaseRecipeManager.getInstance().getUserRecipes(user.getId()));
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.container_frame, RecipeListFragment.newInstance())
+                .commit();
+        String followerTxt = getResources().getString(R.string.follower);
+        String followingTxt = getResources().getString(R.string.following);
+        int followerAmt = user.countFollower();
+        int followingAmt = user.countFollowing();
+        followerButton.setText(followerAmt + " " + followerTxt);
+        followingButton.setText(followingAmt + " " + followingTxt);
     }
 
     private void initInstance() {
@@ -135,5 +153,11 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ProfileManager.getInstance().removeListener(user.getId());
     }
 }
