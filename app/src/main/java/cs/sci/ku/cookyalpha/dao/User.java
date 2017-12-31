@@ -77,6 +77,17 @@ public class User {
             return 0;
         return followings.size();
     }
+
+    public boolean isFollower(String uid){
+        if (followers == null)
+            return false;
+        return followers.containsKey(uid);
+    }
+    public boolean isFollowing(String uid){
+        if (followings == null)
+            return false;
+        return followings.containsKey(uid);
+    }
     @Override
     public String toString() {
         return "User{" +

@@ -135,6 +135,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loadProfile(){
+        Log.d("LoginActivity", "loadProfile");
         FirebaseAuth auth = FirebaseAuth.getInstance();
         String uid = auth.getUid();
         ProfileManager.getInstance().loadUser(uid, new OnResult<User>() {

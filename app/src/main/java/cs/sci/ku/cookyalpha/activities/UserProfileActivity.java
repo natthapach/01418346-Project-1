@@ -63,7 +63,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private void initData() {
         Intent intent = getIntent();
         String uid = intent.getStringExtra("uid");
-        if (uid == null){
+        if (uid == null || uid.equals(UserProfileCarrier.getInstance().getUser().getId())){
             this.user = UserProfileCarrier.getInstance().getUser();
             regisListener();
             initInfo();
@@ -124,6 +124,8 @@ public class UserProfileActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        if (user.getId().equals(UserProfileCarrier.getInstance().getUser().getId()))
+            return super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_other_user, menu);
 //        MenuItem followItem = menu.findItem(R.id.menu_follow);
@@ -131,6 +133,7 @@ public class UserProfileActivity extends AppCompatActivity {
         MenuItem followMenu = menu.findItem(R.id.menu_follow);
         View followLayout = followMenu.getActionView();
         CheckBox followCheckBox = followLayout.findViewById(R.id.cb_follow);
+        followCheckBox.setChecked(user.isFollower(UserProfileCarrier.getInstance().getUser().getId()));
         followCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -158,6 +161,7 @@ public class UserProfileActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+//        if (!user.getId().equals(UserProfileCarrier.getInstance().getUser().getId()))
         ProfileManager.getInstance().removeListener(user.getId());
     }
 }

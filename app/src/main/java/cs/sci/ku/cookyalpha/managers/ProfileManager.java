@@ -25,6 +25,7 @@ import java.util.Set;
 
 import cs.sci.ku.cookyalpha.callbacks.OnResult;
 import cs.sci.ku.cookyalpha.dao.User;
+import cs.sci.ku.cookyalpha.utils.UserProfileCarrier;
 
 public class ProfileManager {
     private static ProfileManager instance;
@@ -32,6 +33,7 @@ public class ProfileManager {
     private Map<String, User> usersBuffer = new HashMap<>();
     private Map<String, ProfileListener> listeners = new HashMap<>();
     private Set<String> listened = new HashSet<>();
+    private User currentUser;
 
     public static ProfileManager getInstance(){
         if (instance == null)
@@ -89,8 +91,12 @@ public class ProfileManager {
                 Log.d("ProfileManager", "dataChange " + dataSnapshot);
                 User user = dataSnapshot.getValue(User.class);
                 Log.d("ProfileManager", "user " + user);
+                Log.d("ProfileManager", "listener = " + listeners.get(user.getId()));
+                usersBuffer.put(user.getId(), user);
                 if (listeners.get(user.getId()) != null)
                     listeners.get(user.getId()).onProfileChange(user);
+                if (UserProfileCarrier.getInstance().getUser().getId().equals(user.getId()))
+                    UserProfileCarrier.getInstance().setUser(user);
             }
 
             @Override
@@ -164,6 +170,20 @@ public class ProfileManager {
         followerRef.child(followedId).setValue(null);
         DatabaseReference followedRef = ref.child(followedId).child("follower");
         followedRef.child(followerId).setValue(null);
+    }
+
+    public User getCurrentUser(){
+        // TODO replace UserProfileCarrier with currentUser
+        return currentUser;
+    }
+
+    public void loadCurrentUser(String uid){
+        loadUser(uid, new OnResult<User>() {
+            @Override
+            public void onResult(User obj) {
+                currentUser = obj;
+            }
+        });
     }
 
     public void regisListener(ProfileListener listener){
