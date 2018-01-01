@@ -21,6 +21,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 
 import cs.sci.ku.cookyalpha.R;
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView userNameTextView;
     private TextView emailTextView;
     private ViewPager viewPager;
+    private LinearLayout logOutMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +79,21 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        logOutMenu = findViewById(R.id.ll_menu_log_out);
+        logOutMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LoginManager.getInstance().logOut();
+                FirebaseAuth.getInstance().signOut();
+
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
 
         profileImageView = findViewById(R.id.iv_profile);
         userNameTextView = findViewById(R.id.tv_user_name);
