@@ -7,6 +7,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
@@ -95,5 +97,15 @@ public class RecipeActivity extends AppCompatActivity {
                     FirebaseRecipeManager.getInstance().unlikeRecipe(recipe);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        if (UserProfileCarrier.getInstance().getUser().getId().equals(recipe.getOwnerId())){
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.menu_owner_recipe, menu);
+            return true;
+        }
+        return super.onCreateOptionsMenu(menu);
     }
 }
