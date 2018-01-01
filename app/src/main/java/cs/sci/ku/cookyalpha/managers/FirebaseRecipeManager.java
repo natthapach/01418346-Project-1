@@ -66,6 +66,7 @@ public class FirebaseRecipeManager{
             observer.onRecipeChange(recipe);
     }
     private void initCallBack() {
+        // TODO limit initial load recipe
         ref.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {

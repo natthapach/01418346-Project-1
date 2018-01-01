@@ -34,7 +34,7 @@ public class GlobalRecipeCollector implements FirebaseRecipeManager.RecipeObserv
         List<Recipe> recipes = FirebaseRecipeManager.getInstance().addObserver(this);
         this.recipes.addAll(recipes);
 
-        adapter = new GlobalRecipeAdapter(recipes);
+        adapter = new GlobalRecipeAdapter(this.recipes);
     }
 
     public BaseAdapter getAdapter(){

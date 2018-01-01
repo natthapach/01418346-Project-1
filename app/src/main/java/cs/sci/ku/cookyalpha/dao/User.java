@@ -1,5 +1,6 @@
 package cs.sci.ku.cookyalpha.dao;
 
+import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.firebase.database.PropertyName;
 
@@ -78,11 +79,13 @@ public class User {
         return followings.size();
     }
 
-    public boolean isFollower(String uid){
+    @Exclude
+    public boolean isFollowBy(String uid){
         if (followers == null)
             return false;
         return followers.containsKey(uid);
     }
+    @Exclude
     public boolean isFollowing(String uid){
         if (followings == null)
             return false;

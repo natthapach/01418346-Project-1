@@ -46,6 +46,7 @@ public class RecipeActivity extends AppCompatActivity {
         viewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public CharSequence getPageTitle(int position) {
+                // TODO use string resource
                 switch (position){
                     case 0 :
                         return "Preview";

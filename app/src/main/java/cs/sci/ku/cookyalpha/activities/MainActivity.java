@@ -3,6 +3,9 @@ package cs.sci.ku.cookyalpha.activities;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +27,7 @@ import cs.sci.ku.cookyalpha.R;
 import cs.sci.ku.cookyalpha.callbacks.OnResult;
 import cs.sci.ku.cookyalpha.callbacks.ProfileCarrierListener;
 import cs.sci.ku.cookyalpha.dao.User;
+import cs.sci.ku.cookyalpha.fragments.FollowingRecipeListFragment;
 import cs.sci.ku.cookyalpha.fragments.GlobalRecipeListFragment;
 import cs.sci.ku.cookyalpha.utils.UserProfileCarrier;
 
@@ -36,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView profileImageView;
     private TextView userNameTextView;
     private TextView emailTextView;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +50,11 @@ public class MainActivity extends AppCompatActivity {
 //        RecipeManager recipeManager = FirebaseRecipeManager.getInstance();
 //
 //        recipeManager.loadGlobalRecipe();
-        if (savedInstanceState == null){
-            getSupportFragmentManager().beginTransaction()
-                                        .add(R.id.container_frame, GlobalRecipeListFragment.newInstance())
-                                        .commit();
-        }
+//        if (savedInstanceState == null){
+//            getSupportFragmentManager().beginTransaction()
+//                                        .add(R.id.container_frame, GlobalRecipeListFragment.newInstance())
+//                                        .commit();
+//        }
         initInstance();
     }
 
@@ -88,6 +93,41 @@ public class MainActivity extends AppCompatActivity {
                     initUserProfileDrawer();
                 }
             });
+
+        viewPager = findViewById(R.id.viewPager);
+        viewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
+
+            @Override
+            public int getCount() {
+                return 2;
+            }
+
+            @Nullable
+            @Override
+            public CharSequence getPageTitle(int position) {
+                // TODO use string resource
+                switch (position){
+                    case 0:
+                        return "Following";
+                    case 1:
+                        return "Global";
+                    default:
+                        return null;
+                }
+            }
+
+            @Override
+            public Fragment getItem(int position) {
+                switch (position){
+                    case 0:
+                        return FollowingRecipeListFragment.newInstance();
+                    case 1:
+                        return GlobalRecipeListFragment.newInstance();
+                    default:
+                        return null;
+                }
+            }
+        });
     }
 
     private void initUserProfileDrawer(){

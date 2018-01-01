@@ -1,7 +1,6 @@
 package cs.sci.ku.cookyalpha.activities;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,7 +8,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -133,7 +131,7 @@ public class UserProfileActivity extends AppCompatActivity {
         MenuItem followMenu = menu.findItem(R.id.menu_follow);
         View followLayout = followMenu.getActionView();
         CheckBox followCheckBox = followLayout.findViewById(R.id.cb_follow);
-        followCheckBox.setChecked(user.isFollower(UserProfileCarrier.getInstance().getUser().getId()));
+        followCheckBox.setChecked(user.isFollowBy(UserProfileCarrier.getInstance().getUser().getId()));
         followCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
