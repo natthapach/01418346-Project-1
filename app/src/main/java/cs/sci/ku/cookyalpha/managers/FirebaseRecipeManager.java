@@ -65,6 +65,10 @@ public class FirebaseRecipeManager{
         for (RecipeObserver observer : observers)
             observer.onRecipeChange(recipe);
     }
+    private void notifyObserverOnRemove(Recipe recipe){
+        for (RecipeObserver observer : observers)
+            observer.onRecipeRemove(recipe);
+    }
     private void initCallBack() {
         // TODO limit initial load recipe
         ref.addChildEventListener(new ChildEventListener() {
@@ -95,7 +99,15 @@ public class FirebaseRecipeManager{
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-
+                Recipe recipe = dataSnapshot.getValue(Recipe.class);
+                Log.d("onChildRecipe", recipe + "");
+                if (recipe != null){
+                    for (int i=0; i<recipes.size(); i++)
+                        if (recipes.get(i).id.equals(recipe.id))
+                            recipes.remove(i);
+                    recipeMap.remove(recipe.id);
+                    notifyObserverOnRemove(recipe);
+                }
             }
 
             @Override
@@ -108,6 +120,10 @@ public class FirebaseRecipeManager{
 
             }
         });
+    }
+
+    public void deleteRecipe(String id){
+        ref.child(id).setValue(null);
     }
 
 

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
@@ -107,5 +108,18 @@ public class RecipeActivity extends AppCompatActivity {
             return true;
         }
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_edit:
+                return true;
+            case R.id.menu_delete:
+                FirebaseRecipeManager.getInstance().deleteRecipe(recipe.id);
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
