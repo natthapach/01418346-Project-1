@@ -94,14 +94,20 @@ public class ProcedurePropertyView extends FrameLayout {
                 .load(procedure.datas)
                 .apply(new RequestOptions().placeholder(R.drawable.placholder_w))
                 .into(imageImageView);
+        else if (procedure.imgUri != null)
+            Glide.with(getContext())
+                    .load(Uri.parse(procedure.imgUri))
+                    .apply(new RequestOptions().placeholder(R.drawable.placholder_w))
+                    .into(imageImageView);
         descriptionEditText.setText(procedure.description);
     }
     public RecipeProcedure getProcedure(){
         procedure.description = descriptionEditText.getText().toString();
-        Bitmap bitmap = ((BitmapDrawable) imageImageView.getDrawable()).getBitmap();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        procedure.datas = baos.toByteArray();
+        // TODO unuse datas
+//        Bitmap bitmap = ((BitmapDrawable) imageImageView.getDrawable()).getBitmap();
+//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+//        procedure.datas = baos.toByteArray();
         return procedure;
     }
     public void enableTopMargin(){
@@ -114,6 +120,7 @@ public class ProcedurePropertyView extends FrameLayout {
 
     public void setImageUri(Uri uri){
         imageImageView.setImageURI(uri);
+        procedure.imgUri = uri.toString();
     }
     public interface OnClickSelectImage{
         void perform();

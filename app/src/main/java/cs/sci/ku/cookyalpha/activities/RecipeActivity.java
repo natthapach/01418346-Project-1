@@ -114,6 +114,9 @@ public class RecipeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_edit:
+                Intent intent = new Intent(this, EditRecipeActivity.class);
+                intent.putExtra("recipe", recipe);
+                startActivity(intent);
                 return true;
             case R.id.menu_delete:
                 FirebaseRecipeManager.getInstance().deleteRecipe(recipe.id);

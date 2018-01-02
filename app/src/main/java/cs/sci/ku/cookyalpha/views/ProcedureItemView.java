@@ -2,6 +2,7 @@ package cs.sci.ku.cookyalpha.views;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -64,20 +65,29 @@ public class ProcedureItemView extends FrameLayout {
     public void setProcedure(RecipeProcedure procedure){
         this.procedure = procedure;
         descriptionTextView.setText(procedure.description);
-
+        //TODO unuse datas
         if (procedure.datas != null)
             Glide.with(getContext())
-                .asBitmap()
-                .load(procedure.datas)
-                .apply(new RequestOptions().fitCenter())
-//                .apply(new RequestOptions().placeholder(R.drawable.placholder_w).centerCrop())
-                .into(imageImageView);
+                    .asBitmap()
+                    .load(procedure.datas)
+                    .apply(new RequestOptions().centerCrop())
+                    .apply(new RequestOptions().placeholder(R.drawable.placholder_w).centerCrop())
+                    .into(imageImageView);
+        else if (procedure.imgUri != null)
+            Glide.with(getContext())
+                    .load(Uri.parse(procedure.imgUri))
+                    .apply(new RequestOptions().centerCrop())
+                    .apply(new RequestOptions().placeholder(R.drawable.placholder_w).centerCrop())
+                    .into(imageImageView);
         else if (procedure.imgUrl != null)
             Glide.with(getContext())
                     .load(procedure.imgUrl)
                     .apply(new RequestOptions().centerCrop())
                     .apply(new RequestOptions().placeholder(R.drawable.placholder_w).centerCrop())
                     .into(imageImageView);
+
+
+
     }
     public void enableTopMargin(){
         @SuppressLint("WrongViewCast") LinearLayout rootLayout = findViewById(R.id.root);

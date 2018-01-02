@@ -7,6 +7,7 @@ import android.os.Parcelable;
 import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.firebase.database.PropertyName;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,8 +52,11 @@ public class Recipe implements Parcelable{
         ownerId = in.readString();
         createdTime = in.readString();
         preview = in.readParcelable(RecipePreview.class.getClassLoader());
-        in.readMap(this.procedures, RecipeProcedure.class.getClassLoader());
+        ingredients = new HashMap<>();
+        procedures = new HashMap<>();
+        like = new HashMap<>();
         in.readMap(this.ingredients, Ingredient.class.getClassLoader());
+        in.readMap(this.procedures, RecipeProcedure.class.getClassLoader());
         in.readMap(this.like, Like.class.getClassLoader());
     }
 
@@ -86,9 +90,8 @@ public class Recipe implements Parcelable{
         parcel.writeString(ownerId);
         parcel.writeString(createdTime);
         parcel.writeParcelable(preview, i);
-        // TODO write parcel map (Like, Ingredient, procedure)
-        parcel.writeMap(procedures);
         parcel.writeMap(ingredients);
+        parcel.writeMap(procedures);
         parcel.writeMap(like);
     }
 
@@ -130,6 +133,22 @@ public class Recipe implements Parcelable{
 
     public Map<String, Ingredient> getIngredients() {
         return ingredients;
+    }
+
+    public ArrayList<RecipeProcedure> getProceduresList(){
+        ArrayList<RecipeProcedure> proceduresList = new ArrayList<>();
+        for (Map.Entry<String, RecipeProcedure> entry : procedures.entrySet()){
+            proceduresList.add(entry.getValue());
+        }
+        return proceduresList;
+    }
+
+    public ArrayList<Ingredient> getIngredientsList(){
+        ArrayList<Ingredient> ingredientsList = new ArrayList<>();
+        for (Map.Entry<String, Ingredient> entry : ingredients.entrySet()){
+            ingredientsList.add(entry.getValue());
+        }
+        return ingredientsList;
     }
 
     public Map<String, RecipeProcedure> getProcedures() {

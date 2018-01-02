@@ -22,6 +22,7 @@ import cs.sci.ku.cookyalpha.fragments.recipe.editor.EditRecipeProceduresFragment
 import cs.sci.ku.cookyalpha.managers.FirebaseRecipeManager;
 import cs.sci.ku.cookyalpha.utils.Contextor;
 import cs.sci.ku.cookyalpha.utils.RecipeEditorCarrier;
+import cs.sci.ku.cookyalpha.utils.RecipesCarrier;
 import dmax.dialog.SpotsDialog;
 
 /**
@@ -120,7 +121,12 @@ public class EditRecipeActivity extends AppCompatActivity {
             }
         });
 
-        RecipeEditorCarrier.getInstance().init();
+        Intent intent = getIntent();
+        Recipe recipe = intent.getParcelableExtra("recipe");
+        if (recipe != null)
+            RecipeEditorCarrier.getInstance().setRecipe(recipe);
+        else
+            RecipeEditorCarrier.getInstance().init();
     }
 
 

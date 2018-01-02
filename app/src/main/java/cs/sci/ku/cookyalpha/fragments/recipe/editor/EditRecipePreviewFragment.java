@@ -64,6 +64,8 @@ public class EditRecipePreviewFragment extends Fragment implements OnConfirmEdit
             Log.d("onCreateView", "preview" + savedInstanceState.getParcelable("preview"));
             preview = savedInstanceState.getParcelable("preview");
             Log.d("preview datas", new ArrayList<>(Arrays.asList(preview.datas)).toString());
+        }else{
+            preview = RecipeEditorCarrier.getInstance().getRecipe().preview;
         }
         initInstance(rootView);
         return rootView;
@@ -72,13 +74,15 @@ public class EditRecipePreviewFragment extends Fragment implements OnConfirmEdit
     @Override
     public void onStart() {
         super.onStart();
-        if (preview.imgUrl != null)
-            Glide.with(getContext()).load(preview.imgUrl).into(previewImageView);
-        else if (preview.datas != null) {
+        if (preview.datas != null)
             Glide.with(getContext()).load(preview.datas).into(previewImageView);
-        } else if (preview.uri != null){
+        else if (preview.uri != null)
             previewImageView.setImageURI(preview.uri);
-        }
+        else if (preview.imgUrl != null)
+            Glide.with(getContext()).load(preview.imgUrl).into(previewImageView);
+
+        nameEditText.setText(RecipeEditorCarrier.getInstance().getRecipe().name);
+        descriptionEditText.setText(RecipeEditorCarrier.getInstance().getRecipe().description);
     }
 
     private void initInstance(View rootView) {

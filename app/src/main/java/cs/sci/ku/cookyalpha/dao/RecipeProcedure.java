@@ -1,5 +1,6 @@
 package cs.sci.ku.cookyalpha.dao;
 
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -19,6 +20,7 @@ public class RecipeProcedure implements Parcelable, ImageUrlSettable{
     @PropertyName("img")            public String imgUrl;
     @PropertyName("description")    public String description;
     @Exclude public byte[] datas;
+    @Exclude public String imgUri;
 
     public RecipeProcedure() {
     }
@@ -32,6 +34,7 @@ public class RecipeProcedure implements Parcelable, ImageUrlSettable{
         imgUrl = in.readString();
         description = in.readString();
         datas = in.createByteArray();
+        imgUri = in.readString();
     }
 
     public static final Creator<RecipeProcedure> CREATOR = new Creator<RecipeProcedure>() {
@@ -64,6 +67,7 @@ public class RecipeProcedure implements Parcelable, ImageUrlSettable{
         parcel.writeString(imgUrl);
         parcel.writeString(description);
         parcel.writeByteArray(datas);
+        parcel.writeString(imgUri);
     }
 
     @Override

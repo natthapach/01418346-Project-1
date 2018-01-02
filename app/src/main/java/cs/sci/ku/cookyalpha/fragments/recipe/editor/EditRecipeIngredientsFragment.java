@@ -52,13 +52,18 @@ public class EditRecipeIngredientsFragment extends Fragment implements OnConfirm
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        if (savedInstanceState != null){
+            ingredients = savedInstanceState.getParcelableArrayList("ingredients");
+        }else
+            ingredients = RecipeEditorCarrier.getInstance().getRecipe().getIngredientsList();
+
         View rootView = inflater.inflate(R.layout.fragment_edit_ingredients, container, false);
         initInstance(rootView);
         return rootView;
     }
 
     private void initInstance(View rootView) {
-        ingredients = new ArrayList<>();
+//        ingredients = new ArrayList<>();
         newButton = rootView.findViewById(R.id.btn_new);
         ingredientsListView = rootView.findViewById(R.id.lv_ingredients);
 

@@ -29,10 +29,6 @@ import cs.sci.ku.cookyalpha.views.IngredientItemView;
 import cs.sci.ku.cookyalpha.views.ProcedureItemView;
 import cs.sci.ku.cookyalpha.views.ProcedurePropertyView;
 
-/**
- * Created by MegapiesPT on 15/11/2560.
- */
-
 public class EditRecipeProceduresFragment extends Fragment implements OnConfirmEditor{
 
     private FloatingActionButton newButton;
@@ -60,6 +56,10 @@ public class EditRecipeProceduresFragment extends Fragment implements OnConfirmE
         View rootView = inflater.inflate(R.layout.fragment_edit_proceures, container, false);
         if (savedInstanceState != null)
             procedures = savedInstanceState.getParcelableArrayList("procedures");
+        else {
+            procedures = RecipeEditorCarrier.getInstance().getRecipe().getProceduresList();
+            Log.d("EditRecipeProcedures", "procedure from carrier "+procedures);
+        }
         initInstance(rootView);
         Log.d("edit procedure fr", "onCreateView");
         return rootView;
@@ -98,6 +98,41 @@ public class EditRecipeProceduresFragment extends Fragment implements OnConfirmE
             }
         };
         proceduresListView.setAdapter(proceduresAdapter);
+        proceduresListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
+                Log.d("EditRecipeProcedures", "onProcedure selected i="+i);
+                procedurePropertyView = new ProcedurePropertyView(getContext());
+                procedurePropertyView.setProcedure(procedures.get(i));
+                procedurePropertyView.setOnClickSelectImageListener(new ProcedurePropertyView.OnClickSelectImage() {
+                    @Override
+                    public void perform() {
+                        onClickSelectButton();
+                    }
+                });
+                // TODO use string resource for procedure (not for ingredient)
+                new AlertDialog.Builder(getContext())
+                        .setView(procedurePropertyView)
+                        .setPositiveButton(R.string.ingredient_submit, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int j) {
+                                procedures.set(i, procedurePropertyView.getProcedure());
+                                proceduresAdapter.notifyDataSetChanged();
+                                Log.d("procedures size", procedures.size() + "");
+                                Log.d("procedues", procedures.toString());
+                            }
+                        })
+                        .setNegativeButton(R.string.ingredient_delete, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int j) {
+                                procedures.remove(i);
+                                proceduresAdapter.notifyDataSetChanged();
+                            }
+                        })
+                        .create()
+                        .show();
+            }
+        });
 
         newButton.setOnClickListener(new View.OnClickListener() {
             @Override

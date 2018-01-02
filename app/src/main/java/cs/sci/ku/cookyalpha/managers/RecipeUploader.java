@@ -45,26 +45,34 @@ public class RecipeUploader {
     }
 
     public void upload(){
-        DatabaseReference rref = FirebaseDatabase.getInstance().getReference("recipe").push();
-        String id = rref.getKey();
-        recipe.id = id;
+        DatabaseReference rref = null;
+        if (recipe.id == null) {
+            rref = FirebaseDatabase.getInstance().getReference("recipe").push();
+            String id = rref.getKey();
+            recipe.id = id;
+        }
+
+
         recipe.ownerId = UserProfileCarrier.getInstance().getUser().getId();
 
         if (recipe.preview.uri != null){
-            UploadImageTask task = new UploadImageTask(recipe.preview.uri, recipe+"/"+recipe.id+"-preview.jpg", recipe.preview);
+            UploadImageTask task = new UploadImageTask(recipe.preview.uri, "recipe/"+recipe.id+"-preview.jpg", recipe.preview);
             taskQueue.add(task);
-        }else {
-            UploadImageTask task = new UploadImageTask(recipe.preview.datas, recipe+"/"+recipe.id+"-preview.jpg", recipe.preview);
+        }else if (recipe.preview.datas != null){
+            UploadImageTask task = new UploadImageTask(recipe.preview.datas, "recipe/"+recipe.id+"-preview.jpg", recipe.preview);
             taskQueue.add(task);
         }
 
         for (Map.Entry<String, RecipeProcedure> entry: recipe.procedures.entrySet()){
             RecipeProcedure procedure = entry.getValue();
             if (procedure.datas != null){
-                UploadImageTask task = new UploadImageTask(procedure.datas, recipe+"/"+recipe.id+"-procedure-"+entry.getKey()+".jpg", procedure);
+                UploadImageTask task = new UploadImageTask(procedure.datas, "recipe/"+recipe.id+"-procedure-"+entry.getKey()+".jpg", procedure);
                 taskQueue.add(task);
-            }else{
-                // TODO upload procedure with uri
+            }
+            else if (procedure.imgUri != null)
+            {
+                UploadImageTask task = new UploadImageTask(Uri.parse(procedure.imgUri), "recipe/"+recipe.id+"-procedure-"+entry.getKey()+".jpg", procedure);
+                taskQueue.add(task);
             }
         }
         nextTask();
