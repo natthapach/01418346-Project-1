@@ -109,6 +109,13 @@ public class EditRecipeIngredientsFragment extends Fragment implements OnConfirm
                     view = new IngredientItemView(getContext());
                 IngredientItemView iview = (IngredientItemView) view;
                 iview.setIngredient(ingredients.get(i));
+
+                iview.disableTopMargin();
+                iview.disableBottomMargin();
+                if (i == 0)
+                    iview.enableTopMargin();
+                else if (i == getCount()-1)
+                    iview.enableBottomMargin();
                 return iview;
             }
         };

@@ -82,4 +82,19 @@ public class IngredientItemView extends FrameLayout {
         layoutParams.setMargins(0, 0, 0, 0);
         rootLayout.setLayoutParams(layoutParams);
     }
+
+    public void enableBottomMargin(){
+        LinearLayout rootLayout = findViewById(R.id.root);
+        FrameLayout.LayoutParams layoutParams = new  FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+
+        layoutParams.setMargins(0, 0, 0, 16);
+        rootLayout.setLayoutParams(layoutParams);
+    }
+    public void disableBottomMargin(){
+        LinearLayout rootLayout = findViewById(R.id.root);
+        FrameLayout.LayoutParams layoutParams = new  FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+
+        layoutParams.setMargins(0, 0, 0, 0);
+        rootLayout.setLayoutParams(layoutParams);
+    }
 }

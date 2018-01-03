@@ -87,10 +87,13 @@ public class IngredientListFragment extends Fragment {
                     view = new IngredientItemView(Contextor.getInstance().getContext());
                 IngredientItemView iview = (IngredientItemView) view;
                 iview.setIngredient(ingredients.get(i));
+
+                iview.disableTopMargin();
+                iview.disableBottomMargin();
                 if (i == 0)
                     iview.enableTopMargin();
-                else
-                    iview.disableTopMargin();
+                else if (i == getCount()-1)
+                    iview.enableBottomMargin();
                 return iview;
             }
         });

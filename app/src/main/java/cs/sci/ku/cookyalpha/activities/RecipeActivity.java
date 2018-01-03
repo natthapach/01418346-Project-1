@@ -1,9 +1,11 @@
 package cs.sci.ku.cookyalpha.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -119,8 +121,25 @@ public class RecipeActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.menu_delete:
-                FirebaseRecipeManager.getInstance().deleteRecipe(recipe.id);
-                finish();
+                // TODO use string resource
+                new AlertDialog.Builder(this)
+                        .setTitle("Confirm")
+                        .setMessage("Are you sure to delete this recipe?")
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+
+                            }
+                        })
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                FirebaseRecipeManager.getInstance().deleteRecipe(recipe.id);
+                                finish();
+                            }
+                        })
+                        .create()
+                        .show();
                 return true;
         }
         return super.onOptionsItemSelected(item);
