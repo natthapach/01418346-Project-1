@@ -1,9 +1,13 @@
 package cs.sci.ku.cookyalpha.dao;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 import com.google.firebase.database.PropertyName;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -11,7 +15,7 @@ import java.util.Map;
  */
 
 @IgnoreExtraProperties
-public class User {
+public class User implements Parcelable{
     @PropertyName("name")       private String name;
     @PropertyName("id")         private String id;
     @PropertyName("imgProfile") private String imgProfile;
@@ -36,6 +40,31 @@ public class User {
         this.followers = followers;
         this.followings = followings;
     }
+
+    protected User(Parcel in) {
+        name = in.readString();
+        id = in.readString();
+        imgProfile = in.readString();
+        email = in.readString();
+
+        followers = new HashMap<>();
+        followings = new HashMap<>();
+
+        in.readMap(followers, String.class.getClassLoader());
+        in.readMap(followings, String.class.getClassLoader());
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 
     public String getEmail() {
         return email;
@@ -101,5 +130,21 @@ public class User {
                 ", followers=" + followers +
                 ", followings=" + followings +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeString(id);
+        parcel.writeString(imgProfile);
+        parcel.writeString(email);
+
+        parcel.writeMap(followers);
+        parcel.writeMap(followings);
     }
 }

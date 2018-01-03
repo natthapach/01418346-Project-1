@@ -22,12 +22,15 @@ import cs.sci.ku.cookyalpha.R;
 import cs.sci.ku.cookyalpha.callbacks.OnResult;
 import cs.sci.ku.cookyalpha.dao.User;
 import cs.sci.ku.cookyalpha.fragments.RecipeListFragment;
+import cs.sci.ku.cookyalpha.fragments.UserListActivity;
 import cs.sci.ku.cookyalpha.managers.FirebaseRecipeManager;
 import cs.sci.ku.cookyalpha.managers.ProfileManager;
 import cs.sci.ku.cookyalpha.utils.RecipesCarrier;
 import cs.sci.ku.cookyalpha.utils.UserProfileCarrier;
 
 public class UserProfileActivity extends AppCompatActivity {
+    private static boolean isActive;
+    private static boolean isChange;
 
     private ImageView profileImageView;
     private TextView nameTextView;
@@ -44,7 +47,9 @@ public class UserProfileActivity extends AppCompatActivity {
         @Override
         public void onProfileChange(User user) {
             UserProfileActivity.this.user = user;
-            initInfo();
+            if (isActive)
+                initInfo();
+            isChange = true;
         }
     };
 
@@ -56,6 +61,20 @@ public class UserProfileActivity extends AppCompatActivity {
 
         initInstance();
         initData();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        isActive = true;
+        initInfo();
+        isChange = false;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        isActive = false;
     }
 
     private void initData() {
@@ -98,6 +117,25 @@ public class UserProfileActivity extends AppCompatActivity {
         int followingAmt = user.countFollowing();
         followerButton.setText(followerAmt + " " + followerTxt);
         followingButton.setText(followingAmt + " " + followingTxt);
+
+        followerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UserProfileActivity.this, UserListActivity.class);
+                String[] ids = (user.getFollowers()==null)?(new String[0]):user.getFollowers().values().toArray(new String[0]);
+                intent.putExtra("userIds", ids);
+                startActivity(intent);
+            }
+        });
+        followingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UserProfileActivity.this, UserListActivity.class);
+                String[] ids = (user.getFollowings()==null)?(new String[0]):user.getFollowings().values().toArray(new String[0]);
+                intent.putExtra("userIds", ids);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initInstance() {
