@@ -36,11 +36,13 @@ import cs.sci.ku.cookyalpha.utils.UserProfileCarrier;
 
 public class FirebaseRecipeManager{
     private static FirebaseRecipeManager instance;
+    private DatabaseReference bookmarkRef;
     private FirebaseDatabase database;
     private DatabaseReference ref;
     private Set<RecipeObserver> observers;
     private List<Recipe> recipes;
     private Map<String, Recipe> recipeMap;
+    private List<String> bookmarkIds;
 
     public static FirebaseRecipeManager getInstance(){
         if (instance==null)
@@ -50,9 +52,11 @@ public class FirebaseRecipeManager{
     private FirebaseRecipeManager(){
         database = FirebaseDatabase.getInstance();
         ref = database.getReference("recipe");
+
         observers = new HashSet<>();
         recipes = new ArrayList<>();
         recipeMap = new HashMap<>();
+        bookmarkIds = new ArrayList<>();
 
         initCallBack();
     }
@@ -90,7 +94,7 @@ public class FirebaseRecipeManager{
                 Log.d("onRecipeChanged", recipe + "");
                 if (recipe != null){
                     for (int i=0; i<recipes.size(); i++)
-                        if (recipes.get(i).getId().equals(recipe.id))
+                        if (recipes.get(i).getId().equals(recipe.getId()))
                             recipes.set(i, recipe);
                     recipeMap.put(recipe.getId(), recipe);
                     notifyObserverOnChange(recipe);
@@ -103,7 +107,7 @@ public class FirebaseRecipeManager{
                 Log.d("onChildRecipe", recipe + "");
                 if (recipe != null){
                     for (int i=0; i<recipes.size(); i++)
-                        if (recipes.get(i).getId().equals(recipe.id))
+                        if (recipes.get(i).getId().equals(recipe.getId()))
                             recipes.remove(i);
                     recipeMap.remove(recipe.getId());
                     notifyObserverOnRemove(recipe);
@@ -182,5 +186,55 @@ public class FirebaseRecipeManager{
         void onRecipeAdd(Recipe recipe);
         void onRecipeChange(Recipe recipe);
         void onRecipeRemove(Recipe recipe);
+    }
+
+    public void initBookmark(String uid){
+        Log.d("FirebaseRecipeManager", "initBookmark");
+        bookmarkRef = database.getReference("bookmark").child(uid);
+        bookmarkRef.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                String recipeId = dataSnapshot.getValue().toString();
+                Log.d("FirebaseRecipeManager", "bookmark add " + recipeId);
+                bookmarkIds.add(recipeId);
+                Log.d("FirebaseRecipeManager", "bookmark" + bookmarkIds);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                String recipeId = dataSnapshot.getValue().toString();
+                Log.d("FirebaseRecipeManager", "bookmark remove " + recipeId);
+                bookmarkIds.remove(recipeId);
+                Log.d("FirebaseRecipeManager", "bookmark" + bookmarkIds);
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public List<String> getBookmarkIds(){
+        return bookmarkIds;
+    }
+
+    public void addBookmark(String recipeId){
+        bookmarkRef.child(recipeId).setValue(recipeId);
+    }
+
+    public void removeBookmark(String recipeId){
+        bookmarkRef.child(recipeId).setValue(null);
     }
 }

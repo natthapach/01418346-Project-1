@@ -54,6 +54,19 @@
                 android:text="@string/menu_create" />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/ll_menu_bookmark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/spacing">
+
+            <TextView
+                style="@style/Header2.Light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/menu_bookmark" />
+        </LinearLayout>
+        <LinearLayout
             android:gravity="bottom"
             android:layout_width="match_parent"
             android:layout_height="match_parent">

@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,6 +37,7 @@ public class PreviewRecipeFragment extends Fragment {
     private ImageView previewImageView;
     private TextView descriptionTextView;
     private TextView recipeNameTextView;
+    private CheckBox bookmarkCheckBox;
 
     public static PreviewRecipeFragment newInstance(String recipeId){
         PreviewRecipeFragment instance = new PreviewRecipeFragment();
@@ -96,6 +99,19 @@ public class PreviewRecipeFragment extends Fragment {
                 openOwnerProfile();
             }
         });
+        bookmarkCheckBox.setChecked(
+                FirebaseRecipeManager.getInstance().getBookmarkIds().contains(recipe.getId())
+        );
+        bookmarkCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b)
+                    FirebaseRecipeManager.getInstance().addBookmark(recipe.getId());
+                else
+                    FirebaseRecipeManager.getInstance().removeBookmark(recipe.getId());
+            }
+        });
+
     }
 
     private void openOwnerProfile(){
@@ -111,6 +127,7 @@ public class PreviewRecipeFragment extends Fragment {
         previewImageView = rootView.findViewById(R.id.iv_recipe_img);
         recipeNameTextView = rootView.findViewById(R.id.tv_recipe_name);
         descriptionTextView =  rootView.findViewById(R.id.tv_recipe_desc);
+        bookmarkCheckBox = rootView.findViewById(R.id.cb_bookmark);
         Log.d("init preview recipe", ownerImageView + " " + ownerNameTextView);
     }
 }

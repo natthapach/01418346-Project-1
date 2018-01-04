@@ -71,7 +71,7 @@ public class FollowingRecipeCollector implements FirebaseRecipeManager.RecipeObs
     @Override
     public void onRecipeChange(Recipe recipe) {
         for (int i=0; i<recipes.size(); i++)
-            if (recipes.get(i).getId().equals(recipe.id)){
+            if (recipes.get(i).getId().equals(recipe.getId())){
                 recipes.set(i, recipe);
                 adapter.notifyDataSetChanged();
                 break;
@@ -81,7 +81,7 @@ public class FollowingRecipeCollector implements FirebaseRecipeManager.RecipeObs
     @Override
     public void onRecipeRemove(Recipe recipe) {
         for (int i=0; i<recipes.size(); i++)
-            if (recipes.get(i).getId().equals(recipe.id)){
+            if (recipes.get(i).getId().equals(recipe.getId())){
                 recipes.remove(i);
                 adapter.notifyDataSetChanged();
                 break;

@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView emailTextView;
     private ViewPager viewPager;
     private LinearLayout logOutMenu;
+    private LinearLayout bookmarkMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +93,16 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        bookmarkMenu = findViewById(R.id.ll_menu_bookmark);
+        bookmarkMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, BookmarkActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
 
 

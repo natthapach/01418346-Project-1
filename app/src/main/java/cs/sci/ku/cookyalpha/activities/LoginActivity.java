@@ -31,6 +31,7 @@ import org.json.JSONObject;
 import cs.sci.ku.cookyalpha.R;
 import cs.sci.ku.cookyalpha.callbacks.OnResult;
 import cs.sci.ku.cookyalpha.dao.User;
+import cs.sci.ku.cookyalpha.managers.FirebaseRecipeManager;
 import cs.sci.ku.cookyalpha.managers.ProfileManager;
 import cs.sci.ku.cookyalpha.utils.UserProfileCarrier;
 
@@ -137,12 +138,13 @@ public class LoginActivity extends AppCompatActivity {
     private void loadProfile(){
         Log.d("LoginActivity", "loadProfile");
         FirebaseAuth auth = FirebaseAuth.getInstance();
-        String uid = auth.getUid();
+        final String uid = auth.getUid();
         ProfileManager.getInstance().loadUser(uid, new OnResult<User>() {
             @Override
             public void onResult(User obj) {
                 UserProfileCarrier carrier = UserProfileCarrier.getInstance();
                 carrier.setUser(obj);
+                FirebaseRecipeManager.getInstance().initBookmark(uid);
             }
         });
     }

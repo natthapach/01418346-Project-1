@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/DarkBackground_Soft"
-    tools:context="cs.sci.ku.cookyalpha.fragments.UserListActivity">
+    tools:context="cs.sci.ku.cookyalpha.activities.UserListActivity">
     <ListView
         android:padding="@dimen/inner_padding"
         android:id="@+id/lv_users"

@@ -22,7 +22,6 @@ import cs.sci.ku.cookyalpha.R;
 import cs.sci.ku.cookyalpha.callbacks.OnResult;
 import cs.sci.ku.cookyalpha.dao.User;
 import cs.sci.ku.cookyalpha.fragments.RecipeListFragment;
-import cs.sci.ku.cookyalpha.fragments.UserListActivity;
 import cs.sci.ku.cookyalpha.managers.FirebaseRecipeManager;
 import cs.sci.ku.cookyalpha.managers.ProfileManager;
 import cs.sci.ku.cookyalpha.utils.RecipesCarrier;

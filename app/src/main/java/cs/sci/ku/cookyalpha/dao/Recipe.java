@@ -18,7 +18,7 @@ import java.util.Map;
 
 @IgnoreExtraProperties
 public class Recipe implements Parcelable{
-    public String id;
+    private String id;
     @PropertyName("description")    private String description;
     @PropertyName("like")           private Map<String, Like> like;
     @PropertyName("name")           private String name;
