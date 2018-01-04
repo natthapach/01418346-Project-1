@@ -23,9 +23,6 @@ import cs.sci.ku.cookyalpha.dao.Recipe;
 import cs.sci.ku.cookyalpha.dao.RecipeProcedure;
 import cs.sci.ku.cookyalpha.utils.UserProfileCarrier;
 
-/**
- * Created by MegapiesPT on 30/11/2560.
- */
 
 public class RecipeUploader {
 
@@ -46,32 +43,32 @@ public class RecipeUploader {
 
     public void upload(){
         DatabaseReference rref = null;
-        if (recipe.id == null) {
+        if (recipe.getId() == null) {
             rref = FirebaseDatabase.getInstance().getReference("recipe").push();
             String id = rref.getKey();
-            recipe.id = id;
+            recipe.setId(id);
         }
 
 
-        recipe.ownerId = UserProfileCarrier.getInstance().getUser().getId();
+        recipe.setOwnerId(UserProfileCarrier.getInstance().getUser().getId());
 
-        if (recipe.preview.uri != null){
-            UploadImageTask task = new UploadImageTask(recipe.preview.uri, "recipe/"+recipe.id+"-preview.jpg", recipe.preview);
+        if (recipe.getPreview().getUri() != null){
+            UploadImageTask task = new UploadImageTask(recipe.getPreview().getUri(), "recipe/"+recipe.getId()+"-preview.jpg", recipe.getPreview());
             taskQueue.add(task);
-        }else if (recipe.preview.datas != null){
-            UploadImageTask task = new UploadImageTask(recipe.preview.datas, "recipe/"+recipe.id+"-preview.jpg", recipe.preview);
+        }else if (recipe.getPreview().getDatas() != null){
+            UploadImageTask task = new UploadImageTask(recipe.getPreview().getDatas(), "recipe/"+recipe.getId()+"-preview.jpg", recipe.getPreview());
             taskQueue.add(task);
         }
 
-        for (Map.Entry<String, RecipeProcedure> entry: recipe.procedures.entrySet()){
+        for (Map.Entry<String, RecipeProcedure> entry: recipe.getProcedures().entrySet()){
             RecipeProcedure procedure = entry.getValue();
-            if (procedure.datas != null){
-                UploadImageTask task = new UploadImageTask(procedure.datas, "recipe/"+recipe.id+"-procedure-"+entry.getKey()+".jpg", procedure);
+            if (procedure.getDatas() != null){
+                UploadImageTask task = new UploadImageTask(procedure.getDatas(), "recipe/"+recipe.getId()+"-procedure-"+entry.getKey()+".jpg", procedure);
                 taskQueue.add(task);
             }
-            else if (procedure.imgUri != null)
+            else if (procedure.getImgUri() != null)
             {
-                UploadImageTask task = new UploadImageTask(Uri.parse(procedure.imgUri), "recipe/"+recipe.id+"-procedure-"+entry.getKey()+".jpg", procedure);
+                UploadImageTask task = new UploadImageTask(Uri.parse(procedure.getImgUri()), "recipe/"+recipe.getId()+"-procedure-"+entry.getKey()+".jpg", procedure);
                 taskQueue.add(task);
             }
         }
@@ -96,17 +93,17 @@ public class RecipeUploader {
         } else{
 //            callback.onComplete(recipe.id);
 
-        uploadData();
+            uploadData();
         }
     }
 
     private void uploadData(){
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("recipe").child(recipe.id);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("recipe").child(recipe.getId());
         ref.setValue(recipe)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        callback.onComplete(recipe.id);
+                        callback.onComplete(recipe.getId());
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

@@ -18,9 +18,9 @@ import cs.sci.ku.cookyalpha.callbacks.ImageUrlSettable;
 
 @IgnoreExtraProperties
 public class RecipePreview implements Parcelable, ImageUrlSettable {
-    @PropertyName("img") public String imgUrl;
-    @Exclude public byte[] datas;
-    @Exclude public Uri uri;
+    @PropertyName("img") private String imgUrl;
+    @Exclude private byte[] datas;
+    @Exclude private Uri uri;
 
     public RecipePreview(String imgUrl) {
         this.imgUrl = imgUrl;
@@ -75,7 +75,30 @@ public class RecipePreview implements Parcelable, ImageUrlSettable {
         this.imgUrl = url;
     }
 
+    @PropertyName("img")
     public String getImgUrl() {
         return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    @Exclude
+    public byte[] getDatas() {
+        return datas;
+    }
+
+    public void setDatas(byte[] datas) {
+        this.datas = datas;
+    }
+
+    @Exclude
+    public Uri getUri() {
+        return uri;
+    }
+
+    public void setUri(Uri uri) {
+        this.uri = uri;
     }
 }

@@ -11,8 +11,8 @@ import com.google.firebase.database.PropertyName;
  */
 @IgnoreExtraProperties
 public class Ingredient implements Parcelable{
-    @PropertyName("name") public String name;
-    @PropertyName("amt") public String amount;
+    @PropertyName("name") private String name;
+    @PropertyName("amt") private String amount;
 
     public Ingredient() {
     }
@@ -64,5 +64,13 @@ public class Ingredient implements Parcelable{
 
     public String getAmount() {
         return amount;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
     }
 }

@@ -84,25 +84,25 @@ public class ProcedurePropertyView extends FrameLayout {
     }
     public void setProcedure(RecipeProcedure procedure){
         this.procedure = procedure;
-        if (procedure.imgUrl != null)
+        if (procedure.getImgUrl() != null)
             Glide.with(getContext())
-                .load(procedure.imgUrl)
+                .load(procedure.getImgUrl())
                 .apply(new RequestOptions().placeholder(R.drawable.placholder_w))
                 .into(imageImageView);
-        else if (procedure.datas != null)
+        else if (procedure.getDatas() != null)
             Glide.with(getContext())
-                .load(procedure.datas)
+                .load(procedure.getDatas())
                 .apply(new RequestOptions().placeholder(R.drawable.placholder_w))
                 .into(imageImageView);
-        else if (procedure.imgUri != null)
+        else if (procedure.getImgUri() != null)
             Glide.with(getContext())
-                    .load(Uri.parse(procedure.imgUri))
+                    .load(Uri.parse(procedure.getImgUri()))
                     .apply(new RequestOptions().placeholder(R.drawable.placholder_w))
                     .into(imageImageView);
-        descriptionEditText.setText(procedure.description);
+        descriptionEditText.setText(procedure.getDescription());
     }
     public RecipeProcedure getProcedure(){
-        procedure.description = descriptionEditText.getText().toString();
+        procedure.setDescription(descriptionEditText.getText().toString());
         // TODO unuse datas
 //        Bitmap bitmap = ((BitmapDrawable) imageImageView.getDrawable()).getBitmap();
 //        ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -120,7 +120,7 @@ public class ProcedurePropertyView extends FrameLayout {
 
     public void setImageUri(Uri uri){
         imageImageView.setImageURI(uri);
-        procedure.imgUri = uri.toString();
+        procedure.setImgUri(uri.toString());
     }
     public interface OnClickSelectImage{
         void perform();

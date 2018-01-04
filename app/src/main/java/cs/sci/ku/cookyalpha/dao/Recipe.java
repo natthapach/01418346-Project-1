@@ -19,14 +19,14 @@ import java.util.Map;
 @IgnoreExtraProperties
 public class Recipe implements Parcelable{
     public String id;
-    @PropertyName("description")    public String description;
-    @PropertyName("like")           public Map<String, Like> like;
-    @PropertyName("name")           public String name;
-    @PropertyName("ownerId")          public String ownerId;
-    @PropertyName("time")           public String createdTime;
-    @PropertyName("ingredient")     public Map<String, Ingredient> ingredients;
-    @PropertyName("procedure")      public Map<String, RecipeProcedure> procedures;
-    @PropertyName("preview")        public RecipePreview preview;
+    @PropertyName("description")    private String description;
+    @PropertyName("like")           private Map<String, Like> like;
+    @PropertyName("name")           private String name;
+    @PropertyName("ownerId")        private String ownerId;
+    @PropertyName("time")           private String createdTime;
+    @PropertyName("ingredient")     private Map<String, Ingredient> ingredients;
+    @PropertyName("procedure")      private Map<String, RecipeProcedure> procedures;
+    @PropertyName("preview")        private RecipePreview preview;
 
     public Recipe() {
         ingredients = new HashMap<>();
@@ -153,6 +153,38 @@ public class Recipe implements Parcelable{
 
     public Map<String, RecipeProcedure> getProcedures() {
         return procedures;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public void setCreatedTime(String createdTime) {
+        this.createdTime = createdTime;
+    }
+
+    public void setIngredients(Map<String, Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public void setProcedures(Map<String, RecipeProcedure> procedures) {
+        this.procedures = procedures;
     }
 
     public RecipePreview getPreview() {

@@ -80,16 +80,16 @@ public class RecipeItemView extends FrameLayout {
     public void setRecipe(Recipe recipe) {
         Log.d("Cooky", "recipe view : setRecipe " + recipe);
         this.recipe = recipe;
-        timeTextView.setText(recipe.createdTime);
-        recipeNameTextView.setText(recipe.name);
+        timeTextView.setText(recipe.getCreatedTime());
+        recipeNameTextView.setText(recipe.getName());
         int like = recipe.countLike();
         likesTextView.setText(like + getResources().getString(R.string.likes));
         Glide.with(getContext())
-                .load(recipe.preview.imgUrl)
+                .load(recipe.getPreview().getImgUrl())
                 .apply(new RequestOptions().centerCrop())
 //                .apply(new RequestOptions().placeholder(R.drawable.placholder_w))
                 .into(recipeImageView);
-        ProfileManager.getInstance().loadUser(recipe.ownerId, new OnResult<User>() {
+        ProfileManager.getInstance().loadUser(recipe.getOwnerId(), new OnResult<User>() {
             @Override
             public void onResult(User obj) {
                 if (ownerImageView != null)

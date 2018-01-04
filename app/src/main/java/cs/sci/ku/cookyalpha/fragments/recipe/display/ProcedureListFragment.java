@@ -52,7 +52,7 @@ public class ProcedureListFragment extends Fragment {
          */
         String recipeId = getArguments().getString("recipeId");
         recipe = FirebaseRecipeManager.getInstance().getRecipe(recipeId);
-        Map<String, RecipeProcedure> sortedProcedure = new TreeMap<>(recipe.procedures);
+        Map<String, RecipeProcedure> sortedProcedure = new TreeMap<>(recipe.getProcedures());
         procedures = new ArrayList<>();
 //        for (RecipeProcedure procedure : sortedProcedure.values())
 //            procedures.add(procedure);
@@ -74,7 +74,7 @@ public class ProcedureListFragment extends Fragment {
         procedureListView.setAdapter(new BaseAdapter() {
             @Override
             public int getCount() {
-                return recipe.procedures.size();
+                return recipe.getProcedures().size();
             }
 
             @Override

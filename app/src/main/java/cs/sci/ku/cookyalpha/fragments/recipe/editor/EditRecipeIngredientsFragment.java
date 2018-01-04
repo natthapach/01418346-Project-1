@@ -127,16 +127,16 @@ public class EditRecipeIngredientsFragment extends Fragment implements OnConfirm
                 final EditText nameEditText = dialog.findViewById(R.id.et_name);
                 final EditText amtEditText = dialog.findViewById(R.id.et_amt);
                 final Ingredient ingredient = ingredients.get(i);
-                nameEditText.setText(ingredient.name);
-                amtEditText.setText(ingredient.amount);
+                nameEditText.setText(ingredient.getName());
+                amtEditText.setText(ingredient.getAmount());
 
                 new AlertDialog.Builder(getContext())
                         .setView(dialog)
                         .setPositiveButton(R.string.ingredient_submit, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int j) {
-                                ingredients.get(i).name = nameEditText.getText().toString();
-                                ingredients.get(i).amount = amtEditText.getText().toString();
+                                ingredients.get(i).setName(nameEditText.getText().toString());
+                                ingredients.get(i).setAmount(amtEditText.getText().toString());
                                 ingredientsAdapter.notifyDataSetChanged();
                             }
                         })

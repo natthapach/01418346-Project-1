@@ -134,7 +134,7 @@ public class RecipeActivity extends AppCompatActivity {
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                FirebaseRecipeManager.getInstance().deleteRecipe(recipe.id);
+                                FirebaseRecipeManager.getInstance().deleteRecipe(recipe.getId());
                                 finish();
                             }
                         })

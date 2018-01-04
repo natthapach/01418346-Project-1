@@ -10,7 +10,7 @@ import com.google.firebase.database.PropertyName;
  */
 
 public class Like implements Parcelable{
-    @PropertyName("user-id")    public String userId;
+    @PropertyName("user-id")    private String userId;
 
     public Like() {}
 

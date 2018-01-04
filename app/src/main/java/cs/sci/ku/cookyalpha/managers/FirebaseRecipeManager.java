@@ -76,9 +76,9 @@ public class FirebaseRecipeManager{
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Recipe recipe = dataSnapshot.getValue(Recipe.class);
                 if (recipe != null){
-                    recipe.id = dataSnapshot.getKey();
+                    recipe.setId(dataSnapshot.getKey());
                     recipes.add(recipe);
-                    recipeMap.put(recipe.id, recipe);
+                    recipeMap.put(recipe.getId(), recipe);
                     Log.d("My App", recipe.toString());
                     notifyObserversOnAdd(recipe);
                 }
@@ -90,9 +90,9 @@ public class FirebaseRecipeManager{
                 Log.d("onRecipeChanged", recipe + "");
                 if (recipe != null){
                     for (int i=0; i<recipes.size(); i++)
-                        if (recipes.get(i).id.equals(recipe.id))
+                        if (recipes.get(i).getId().equals(recipe.id))
                             recipes.set(i, recipe);
-                    recipeMap.put(recipe.id, recipe);
+                    recipeMap.put(recipe.getId(), recipe);
                     notifyObserverOnChange(recipe);
                 }
             }
@@ -103,9 +103,9 @@ public class FirebaseRecipeManager{
                 Log.d("onChildRecipe", recipe + "");
                 if (recipe != null){
                     for (int i=0; i<recipes.size(); i++)
-                        if (recipes.get(i).id.equals(recipe.id))
+                        if (recipes.get(i).getId().equals(recipe.id))
                             recipes.remove(i);
-                    recipeMap.remove(recipe.id);
+                    recipeMap.remove(recipe.getId());
                     notifyObserverOnRemove(recipe);
                 }
             }
@@ -138,7 +138,7 @@ public class FirebaseRecipeManager{
         return categories;
     }
     public void uploadRecipe(final Recipe recipe, final UploadRecipeCallback callback){
-        recipe.ownerId = UserProfileCarrier.getInstance().getUser().getId();
+        recipe.setOwnerId(UserProfileCarrier.getInstance().getUser().getId());
         Log.d("uploadRecipe", "in uploadRecipe " + recipe);
         RecipeUploader uploader = new RecipeUploader(recipe, new UploadRecipeCallback() {
             @Override
@@ -165,10 +165,10 @@ public class FirebaseRecipeManager{
 
     public void likeRecipe(Recipe recipe){
         Like like = new Like(UserProfileCarrier.getInstance().getUser().getId());
-        ref.child(recipe.id).child("like").child(like.getUserId()).setValue(like);
+        ref.child(recipe.getId()).child("like").child(like.getUserId()).setValue(like);
     }
     public void unlikeRecipe(Recipe recipe){
-        ref.child(recipe.id).child("like").child(UserProfileCarrier.getInstance().getUser().getId()).setValue(null);
+        ref.child(recipe.getId()).child("like").child(UserProfileCarrier.getInstance().getUser().getId()).setValue(null);
     }
 
     public List<Recipe> addObserver(RecipeObserver observer){

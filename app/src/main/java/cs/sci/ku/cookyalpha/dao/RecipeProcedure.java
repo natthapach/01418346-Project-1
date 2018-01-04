@@ -17,10 +17,10 @@ import cs.sci.ku.cookyalpha.callbacks.ImageUrlSettable;
  */
 @IgnoreExtraProperties
 public class RecipeProcedure implements Parcelable, ImageUrlSettable{
-    @PropertyName("img")            public String imgUrl;
-    @PropertyName("description")    public String description;
-    @Exclude public byte[] datas;
-    @Exclude public String imgUri;
+    @PropertyName("img")            private String imgUrl;
+    @PropertyName("description")    private String description;
+    @Exclude private byte[] datas;
+    @Exclude private String imgUri;
 
     public RecipeProcedure() {
     }
@@ -81,5 +81,29 @@ public class RecipeProcedure implements Parcelable, ImageUrlSettable{
 
     public String getDescription() {
         return description;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public byte[] getDatas() {
+        return datas;
+    }
+
+    public void setDatas(byte[] datas) {
+        this.datas = datas;
+    }
+
+    public String getImgUri() {
+        return imgUri;
+    }
+
+    public void setImgUri(String imgUri) {
+        this.imgUri = imgUri;
     }
 }

@@ -32,7 +32,7 @@ public class FollowingRecipeCollector implements FirebaseRecipeManager.RecipeObs
         // TODO optimize with following user buffer
         for (final Recipe recipe : recipes){
             ProfileManager.getInstance()
-                    .loadUser(recipe.ownerId, new OnResult<User>() {
+                    .loadUser(recipe.getOwnerId(), new OnResult<User>() {
                         @Override
                         public void onResult(User owner) {
                             if (owner.isFollowBy(UserProfileCarrier.getInstance().getUser().getId())) {
@@ -57,7 +57,7 @@ public class FollowingRecipeCollector implements FirebaseRecipeManager.RecipeObs
         Log.d("My App", "Following receive " + recipe);
         ProfileManager
             .getInstance()
-            .loadUser(recipe.ownerId, new OnResult<User>() {
+            .loadUser(recipe.getOwnerId(), new OnResult<User>() {
                 @Override
                 public void onResult(User owner) {
                     if (owner.isFollowBy(UserProfileCarrier.getInstance().getUser().getId())){
@@ -71,7 +71,7 @@ public class FollowingRecipeCollector implements FirebaseRecipeManager.RecipeObs
     @Override
     public void onRecipeChange(Recipe recipe) {
         for (int i=0; i<recipes.size(); i++)
-            if (recipes.get(i).id.equals(recipe.id)){
+            if (recipes.get(i).getId().equals(recipe.id)){
                 recipes.set(i, recipe);
                 adapter.notifyDataSetChanged();
                 break;
@@ -81,7 +81,7 @@ public class FollowingRecipeCollector implements FirebaseRecipeManager.RecipeObs
     @Override
     public void onRecipeRemove(Recipe recipe) {
         for (int i=0; i<recipes.size(); i++)
-            if (recipes.get(i).id.equals(recipe.id)){
+            if (recipes.get(i).getId().equals(recipe.id)){
                 recipes.remove(i);
                 adapter.notifyDataSetChanged();
                 break;

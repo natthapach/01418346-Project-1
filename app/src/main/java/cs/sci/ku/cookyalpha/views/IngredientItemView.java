@@ -63,8 +63,8 @@ public class IngredientItemView extends FrameLayout {
     public void setIngredient(Ingredient ingredient){
         this.ingredient = ingredient;
         Log.d("nameTextView", nameTextView + "");
-        nameTextView.setText(ingredient.name);
-        amountTextView.setText(ingredient.amount);
+        nameTextView.setText(ingredient.getName());
+        amountTextView.setText(ingredient.getAmount());
     }
 
     public void enableTopMargin(){

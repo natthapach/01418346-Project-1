@@ -64,24 +64,24 @@ public class ProcedureItemView extends FrameLayout {
 
     public void setProcedure(RecipeProcedure procedure){
         this.procedure = procedure;
-        descriptionTextView.setText(procedure.description);
+        descriptionTextView.setText(procedure.getDescription());
         //TODO unuse datas
-        if (procedure.datas != null)
+        if (procedure.getDatas() != null)
             Glide.with(getContext())
                     .asBitmap()
-                    .load(procedure.datas)
+                    .load(procedure.getDatas())
                     .apply(new RequestOptions().centerCrop())
                     .apply(new RequestOptions().placeholder(R.drawable.placholder_w).centerCrop())
                     .into(imageImageView);
-        else if (procedure.imgUri != null)
+        else if (procedure.getImgUri() != null)
             Glide.with(getContext())
-                    .load(Uri.parse(procedure.imgUri))
+                    .load(Uri.parse(procedure.getImgUri()))
                     .apply(new RequestOptions().centerCrop())
                     .apply(new RequestOptions().placeholder(R.drawable.placholder_w).centerCrop())
                     .into(imageImageView);
-        else if (procedure.imgUrl != null)
+        else if (procedure.getImgUrl() != null)
             Glide.with(getContext())
-                    .load(procedure.imgUrl)
+                    .load(procedure.getImgUrl())
                     .apply(new RequestOptions().centerCrop())
                     .apply(new RequestOptions().placeholder(R.drawable.placholder_w).centerCrop())
                     .into(imageImageView);

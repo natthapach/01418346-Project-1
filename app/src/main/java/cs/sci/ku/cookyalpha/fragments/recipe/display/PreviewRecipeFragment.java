@@ -64,14 +64,14 @@ public class PreviewRecipeFragment extends Fragment {
     }
 
     private void initData() {
-        timeTextView.setText(recipe.createdTime);
-        descriptionTextView.setText(recipe.description);
-        recipeNameTextView.setText(recipe.name);
+        timeTextView.setText(recipe.getCreatedTime());
+        descriptionTextView.setText(recipe.getDescription());
+        recipeNameTextView.setText(recipe.getName());
         Glide.with(getContext())
-                .load(recipe.preview.imgUrl)
+                .load(recipe.getPreview().getImgUrl())
                 .apply(new RequestOptions().centerCrop())
                 .into(previewImageView);
-        ProfileManager.getInstance().loadUser(recipe.ownerId, new OnResult<User>() {
+        ProfileManager.getInstance().loadUser(recipe.getOwnerId(), new OnResult<User>() {
             @Override
             public void onResult(User obj) {
                 Log.d("preview recipe", ownerImageView + " " + ownerNameTextView);
@@ -100,7 +100,7 @@ public class PreviewRecipeFragment extends Fragment {
 
     private void openOwnerProfile(){
         Intent intent = new Intent(getContext(), UserProfileActivity.class);
-        intent.putExtra("uid", recipe.ownerId);
+        intent.putExtra("uid", recipe.getOwnerId());
         startActivity(intent);
     }
 

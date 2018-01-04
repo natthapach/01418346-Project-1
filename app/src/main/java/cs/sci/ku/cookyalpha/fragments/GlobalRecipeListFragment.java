@@ -58,7 +58,7 @@ public class GlobalRecipeListFragment extends Fragment {
                 Log.d("onClickRecipe Item", view.toString());
                 if (view instanceof RecipeItemView) {
                     RecipeItemView recipeItemView = (RecipeItemView) view;
-                    String recipeId = recipeItemView.getRecipe().id;
+                    String recipeId = recipeItemView.getRecipe().getId();
                     Intent intent = new Intent(getContext(), RecipeActivity.class);
                     intent.putExtra("recipeId", recipeId);
                     startActivity(intent);

@@ -51,7 +51,7 @@ public class GlobalRecipeCollector implements FirebaseRecipeManager.RecipeObserv
     @Override
     public void onRecipeChange(Recipe recipe) {
         for (int i=0; i<recipes.size(); i++)
-            if (recipes.get(i).id.equals(recipe.id)) {
+            if (recipes.get(i).getId().equals(recipe.getId())) {
                 recipes.set(i, recipe);
                 break;
             }
@@ -61,7 +61,7 @@ public class GlobalRecipeCollector implements FirebaseRecipeManager.RecipeObserv
     @Override
     public void onRecipeRemove(Recipe recipe) {
         for (int i=0; i<recipes.size(); i++)
-            if (recipes.get(i).id.equals(recipe.id)) {
+            if (recipes.get(i).getId().equals(recipe.getId())) {
                 recipes.remove(i);
                 break;
             }

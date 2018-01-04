@@ -50,7 +50,7 @@ public class IngredientListFragment extends Fragment {
          */
         String recipeId = getArguments().getString("recipeId");
         recipe = FirebaseRecipeManager.getInstance().getRecipe(recipeId);
-        ingredients = new ArrayList<>(recipe.ingredients.values());
+        ingredients = new ArrayList<>(recipe.getIngredients().values());
     }
 
     @Nullable
@@ -68,7 +68,7 @@ public class IngredientListFragment extends Fragment {
         ingredientListView.setAdapter(new BaseAdapter() {
             @Override
             public int getCount() {
-                return recipe.ingredients.size();
+                return recipe.getIngredients().size();
             }
 
             @Override
