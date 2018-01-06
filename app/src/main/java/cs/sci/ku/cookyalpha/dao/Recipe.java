@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by MegapiesPT on 31/10/2560.
@@ -27,6 +28,7 @@ public class Recipe implements Parcelable{
     @PropertyName("ingredient")     private Map<String, Ingredient> ingredients;
     @PropertyName("procedure")      private Map<String, RecipeProcedure> procedures;
     @PropertyName("preview")        private RecipePreview preview;
+                                    private Map<String, Comment> comments = new TreeMap<>();
 
     public Recipe() {
         ingredients = new HashMap<>();
@@ -58,6 +60,7 @@ public class Recipe implements Parcelable{
         in.readMap(this.ingredients, Ingredient.class.getClassLoader());
         in.readMap(this.procedures, RecipeProcedure.class.getClassLoader());
         in.readMap(this.like, Like.class.getClassLoader());
+        in.readMap(this.comments, Comment.class.getClassLoader());
     }
 
     public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
@@ -74,7 +77,18 @@ public class Recipe implements Parcelable{
 
     @Override
     public String toString() {
-        return String.format("Recipe { id:%s, name:%s, description:%s, like:%s, owner:%s, time:%s, ingredients:%s, procedures:%s, preview:%s}", id, name, description, like, ownerId, createdTime, ingredients, procedures, preview);
+        return "Recipe{" +
+                "id='" + id + '\'' +
+                ", description='" + description + '\'' +
+                ", like=" + like +
+                ", name='" + name + '\'' +
+                ", ownerId='" + ownerId + '\'' +
+                ", createdTime='" + createdTime + '\'' +
+                ", ingredients=" + ingredients +
+                ", procedures=" + procedures +
+                ", preview=" + preview +
+                ", comments=" + comments +
+                '}';
     }
 
     @Override
@@ -93,6 +107,7 @@ public class Recipe implements Parcelable{
         parcel.writeMap(ingredients);
         parcel.writeMap(procedures);
         parcel.writeMap(like);
+        parcel.writeMap(comments);
     }
 
     public void setIngredientsList(List<Ingredient> ingredientsList){
@@ -149,6 +164,10 @@ public class Recipe implements Parcelable{
             ingredientsList.add(entry.getValue());
         }
         return ingredientsList;
+    }
+
+    public Map<String, Comment> getComments() {
+        return comments;
     }
 
     public Map<String, RecipeProcedure> getProcedures() {

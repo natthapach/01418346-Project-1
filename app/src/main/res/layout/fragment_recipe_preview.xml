@@ -69,5 +69,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
         </LinearLayout>
+        <LinearLayout
+            android:padding="@dimen/inner_padding"
+            android:gravity="bottom|center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/tv_view_comment"
+                style="@style/NormalText.Light"
+                android:text="View Comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

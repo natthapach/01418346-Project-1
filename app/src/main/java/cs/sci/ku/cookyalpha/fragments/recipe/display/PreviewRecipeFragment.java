@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
 import cs.sci.ku.cookyalpha.R;
+import cs.sci.ku.cookyalpha.activities.CommentActivity;
 import cs.sci.ku.cookyalpha.activities.UserProfileActivity;
 import cs.sci.ku.cookyalpha.callbacks.OnResult;
 import cs.sci.ku.cookyalpha.dao.Recipe;
@@ -38,6 +39,7 @@ public class PreviewRecipeFragment extends Fragment {
     private TextView descriptionTextView;
     private TextView recipeNameTextView;
     private CheckBox bookmarkCheckBox;
+    private TextView viewCommentTextView;
 
     public static PreviewRecipeFragment newInstance(String recipeId){
         PreviewRecipeFragment instance = new PreviewRecipeFragment();
@@ -111,6 +113,14 @@ public class PreviewRecipeFragment extends Fragment {
                     FirebaseRecipeManager.getInstance().removeBookmark(recipe.getId());
             }
         });
+        viewCommentTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), CommentActivity.class);
+                intent.putExtra("rid", recipe.getId());
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -128,6 +138,7 @@ public class PreviewRecipeFragment extends Fragment {
         recipeNameTextView = rootView.findViewById(R.id.tv_recipe_name);
         descriptionTextView =  rootView.findViewById(R.id.tv_recipe_desc);
         bookmarkCheckBox = rootView.findViewById(R.id.cb_bookmark);
+        viewCommentTextView = rootView.findViewById(R.id.tv_view_comment);
         Log.d("init preview recipe", ownerImageView + " " + ownerNameTextView);
     }
 }

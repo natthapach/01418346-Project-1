@@ -24,8 +24,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 
 import cs.sci.ku.cookyalpha.callbacks.UploadRecipeCallback;
+import cs.sci.ku.cookyalpha.dao.Comment;
 import cs.sci.ku.cookyalpha.dao.Like;
 import cs.sci.ku.cookyalpha.dao.Recipe;
 import cs.sci.ku.cookyalpha.utils.UserProfileCarrier;
@@ -84,6 +86,7 @@ public class FirebaseRecipeManager{
                     recipes.add(recipe);
                     recipeMap.put(recipe.getId(), recipe);
                     Log.d("My App", recipe.toString());
+                    Log.d("FirebaseRecipeManager", "recipe comments is treemap = " +(recipe.getComments() instanceof TreeMap));
                     notifyObserversOnAdd(recipe);
                 }
             }
@@ -228,6 +231,10 @@ public class FirebaseRecipeManager{
 
     public List<String> getBookmarkIds(){
         return bookmarkIds;
+    }
+
+    public void addComment(String recipeId, Comment comment) {
+        ref.child(recipeId).child("comments").push().setValue(comment);
     }
 
     public void addBookmark(String recipeId){
